@@ -1,0 +1,231 @@
+###############################################################################
+#
+# IAR ELF Linker V7.80.1.11864/W32 for ARM                23/Nov/2016  15:23:03
+# Copyright 2007-2016 IAR Systems AB.
+#
+#    Output file  =  
+#        Z:\GitHub\Projet_M2\Board\nrf6310\template_project\iar\Debug\Exe\template_project.out
+#    Map file     =  
+#        Z:\GitHub\Projet_M2\Board\nrf6310\template_project\iar\Debug\List\template_project.map
+#    Command line =  
+#        Z:\GitHub\Projet_M2\Board\nrf6310\template_project\iar\Debug\Obj\iar_startup_nrf51.o
+#        Z:\GitHub\Projet_M2\Board\nrf6310\template_project\iar\Debug\Obj\initialization.o
+#        Z:\GitHub\Projet_M2\Board\nrf6310\template_project\iar\Debug\Obj\main.o
+#        Z:\GitHub\Projet_M2\Board\nrf6310\template_project\iar\Debug\Obj\spi_master.o
+#        Z:\GitHub\Projet_M2\Board\nrf6310\template_project\iar\Debug\Obj\system_nrf51.o
+#        --redirect _Printf=_PrintfFull --redirect _Scanf=_ScanfFull -o
+#        Z:\GitHub\Projet_M2\Board\nrf6310\template_project\iar\Debug\Exe\template_project.out
+#        --map
+#        Z:\GitHub\Projet_M2\Board\nrf6310\template_project\iar\Debug\List\template_project.map
+#        --config "C:\Program Files (x86)\IAR Systems\Embedded Workbench
+#        7.5\arm\config\linker\NordicSemi\nRF51822_QFAA.icf" --semihosting
+#        --entry __iar_program_start --inline --vfe
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A0":  place at 0x00000000 { ro section .intvec };
+"P1":  place in [from 0x00000000 to 0x0003ffff] { ro };
+"P2":  place in [from 0x20000000 to 0x20003fff] { rw, block CSTACK, block HEAP };
+initialize by copy { rw };
+ { section .intvec };
+
+  Section            Kind        Address   Size  Object
+  -------            ----        -------   ----  ------
+"A0":                                      0xc0
+  .intvec            ro code  0x00000000   0xc0  iar_startup_nrf51.o [1]
+                            - 0x000000c0   0xc0
+
+"P1":                                     0x680
+  .text              ro code  0x000000c0  0x23c  main.o [1]
+  .text              ro code  0x000002fc  0x1c0  spi_master.o [1]
+  .text              ro code  0x000004bc   0x70  initialization.o [1]
+  .text              ro code  0x0000052c   0xf0  system_nrf51.o [1]
+  .text              ro code  0x0000061c   0x30  copy_init3.o [4]
+  .text              ro code  0x0000064c   0x2c  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000678   0x28  data_init.o [4]
+  .iar.init_table    const    0x000006a0   0x14  - Linker created -
+  .text              ro code  0x000006b4   0x1a  cmain.o [4]
+  .text              ro code  0x000006ce    0x8  exit.o [3]
+  .text              ro code  0x000006d6    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x000006d8    0xa  cexit.o [4]
+  .text              ro code  0x000006e2    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x000006e4   0x14  exit.o [5]
+  .text              ro code  0x000006f8    0xc  cstartup_M.o [4]
+  Initializer bytes  const    0x00000704    0x8  <for P2-1>
+  .text              ro code  0x0000070c    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x0000070e    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000710    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000712    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000714    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000716    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000718    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x0000071a    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x0000071c    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x0000071e    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000720    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000722    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000724    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000726    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000728    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x0000072a    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x0000072c    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x0000072e    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000730    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000732    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000734    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000736    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000738    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x0000073a    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x0000073c    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x0000073e    0x2  iar_startup_nrf51.o [1]
+  .rodata            const    0x00000740    0x0  copy_init3.o [4]
+                            - 0x00000740  0x680
+
+"P2", part 1 of 2:                          0x8
+  P2-1                        0x20000000    0x8  <Init block>
+    .data            inited   0x20000000    0x4  system_nrf51.o [1]
+    .bss             inited   0x20000004    0x2  main.o [1]
+    .bss             inited   0x20000006    0x2  main.o [1]
+                            - 0x20000008    0x8
+
+"P2", part 2 of 2:                        0x800
+  CSTACK                      0x20000008  0x800  <Block>
+    CSTACK           uninit   0x20000008  0x800  <Block tail>
+                            - 0x20000808  0x800
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address     Size
+          -------     ----
+Copy (__iar_copy_init3)
+    1 source range, total size 0x8:
+          0x00000704   0x8
+    1 destination range, total size 0x8:
+          0x20000000   0x8
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module               ro code  ro data  rw data
+    ------               -------  -------  -------
+Z:\GitHub\Projet_M2\Board\nrf6310\template_project\iar\Debug\Obj: [1]
+    iar_startup_nrf51.o      292
+    initialization.o         112
+    main.o                   572        4        4
+    spi_master.o             448
+    system_nrf51.o           240        4        4
+    ----------------------------------------------
+    Total:                 1 664        8        8
+
+command line: [2]
+    ----------------------------------------------
+    Total:
+
+dl6M_tln.a: [3]
+    exit.o                     8
+    ----------------------------------------------
+    Total:                     8
+
+rt6M_tl.a: [4]
+    cexit.o                   10
+    cmain.o                   26
+    copy_init3.o              48
+    cstartup_M.o              12
+    data_init.o               40
+    ----------------------------------------------
+    Total:                   136
+
+shb_l.a: [5]
+    exit.o                    20
+    ----------------------------------------------
+    Total:                    20
+
+    Linker created                     20    2 048
+--------------------------------------------------
+    Grand Total:           1 828       28    2 056
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                      Address  Size  Type      Object
+-----                      -------  ----  ----      ------
+.iar.init_table$$Base   0x000006a0         --   Gb  - Linker created -
+.iar.init_table$$Limit  0x000006b4         --   Gb  - Linker created -
+?main                   0x000006b5        Code  Gb  cmain.o [4]
+CSTACK$$Base            0x20000008         --   Gb  - Linker created -
+CSTACK$$Limit           0x20000808         --   Gb  - Linker created -
+GPIOTE_IRQHandler       0x000001c5  0x10  Code  Gb  main.o [1]
+NVIC_EnableIRQ          0x000000c1   0xe  Code  Lc  main.o [1]
+Region$$Table$$Base     0x000006a0         --   Gb  - Linker created -
+Region$$Table$$Limit    0x000006b4         --   Gb  - Linker created -
+SystemCoreClock         0x20000000   0x4  Data  Gb  system_nrf51.o [1]
+SystemInit              0x0000052d  0x28  Code  Gb  system_nrf51.o [1]
+TIMER0_IRQHandler       0x000001d5  0x1a  Code  Gb  main.o [1]
+__Vectors               0x00000000         --   Gb  iar_startup_nrf51.o [1]
+__Vectors_End           0x000000c0        Data  Gb  iar_startup_nrf51.o [1]
+__Vectors_Size {Abs}    0x000000c0         --   Gb  iar_startup_nrf51.o [1]
+__cmain                 0x000006b5        Code  Gb  cmain.o [4]
+__exit                  0x000006e5  0x14  Code  Gb  exit.o [5]
+__iar_copy_init3        0x0000061d  0x30  Code  Gb  copy_init3.o [4]
+__iar_data_init3        0x00000679  0x28  Code  Gb  data_init.o [4]
+__iar_program_start     0x000006f9        Code  Gb  cstartup_M.o [4]
+__vector_table          0x00000000        Data  Gb  iar_startup_nrf51.o [1]
+_call_main              0x000006c1        Code  Gb  cmain.o [4]
+_exit                   0x000006d9        Code  Gb  cexit.o [4]
+_main                   0x000006cb        Code  Gb  cmain.o [4]
+exit                    0x000006cf   0x8  Code  Gb  exit.o [3]
+gpiote_init             0x000004f9  0x24  Code  Gb  initialization.o [1]
+is_disabled_in_debug_needed
+                        0x000005c5  0x38  Code  Lc  system_nrf51.o [1]
+is_manual_peripheral_setup_needed
+                        0x00000555  0x70  Code  Lc  system_nrf51.o [1]
+main                    0x000001ef  0x44  Code  Gb  main.o [1]
+nrf_gpio_cfg_input      0x000004bd  0x12  Code  Lc  initialization.o [1]
+nrf_gpio_cfg_input      0x00000309  0x12  Code  Lc  spi_master.o [1]
+nrf_gpio_cfg_output     0x000000cf   0xc  Code  Lc  main.o [1]
+nrf_gpio_cfg_output     0x000002fd   0xc  Code  Lc  spi_master.o [1]
+nrf_gpio_pin_clear      0x00000325   0xa  Code  Lc  spi_master.o [1]
+nrf_gpio_pin_set        0x0000031b   0xa  Code  Lc  spi_master.o [1]
+nrf_gpio_pin_toggle     0x000000db  0x10  Code  Lc  main.o [1]
+nrf_gpiote_event_config
+                        0x000004cf  0x2a  Code  Lc  initialization.o [1]
+rx_data                 0x20000006   0x2  Data  Lc  main.o [1]
+spi_master_init         0x0000032f  0xe6  Code  Gb  spi_master.o [1]
+spi_master_tx_rx        0x00000415  0x84  Code  Gb  spi_master.o [1]
+test_spi_tx_rx          0x000000eb  0xda  Code  Lc  main.o [1]
+timer_init              0x00000233  0x40  Code  Gb  main.o [1]
+tx_data                 0x20000004   0x2  Data  Lc  main.o [1]
+
+
+[1] = Z:\GitHub\Projet_M2\Board\nrf6310\template_project\iar\Debug\Obj
+[2] = command line
+[3] = dl6M_tln.a
+[4] = rt6M_tl.a
+[5] = shb_l.a
+
+  1 828 bytes of readonly  code memory
+     28 bytes of readonly  data memory
+  2 056 bytes of readwrite data memory
+
+Errors: none
+Warnings: none

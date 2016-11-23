@@ -316,7 +316,7 @@
         <option>
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$\..\..\..\..\Include</state>
-          <state>D:\IAR Embedded Workbench\arm\7.80.1\NordicSemi\nrf51822\Board\nrf6310\template_project</state>
+          <state>$PROJ_DIR$\..\</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>

@@ -1,10 +1,10 @@
-"Z:\GitHub\Projet_M2\template_project\main.c"
+"Z:\GitHub\Projet_M2\Board\nrf6310\template_project\main.c"
 -std=c99
 -ferror-limit=100
 -I
-Z:\GitHub\Projet_M2\template_project\iar\..\..\..\..\Include
+Z:\GitHub\Projet_M2\Board\nrf6310\template_project\iar\..\..\..\..\Include
 -I
-D:\IAR Embedded Workbench\arm\7.80.1\NordicSemi\nrf51822\Board\nrf6310\template_project
+Z:\GitHub\Projet_M2\Board\nrf6310\template_project\iar\..
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\CMSIS\Include
 -I
@@ -12,9 +12,9 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\inc\c
 -I
-Z:\Include
+Z:\GitHub\Projet_M2\Include
 -I
-D:\IAR Embedded Workbench\arm\7.80.1\NordicSemi\nrf51822\Board\nrf6310\template_project
+Z:\GitHub\Projet_M2\Board\nrf6310\template_project
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\CMSIS\Include
 -DDEBUG=1

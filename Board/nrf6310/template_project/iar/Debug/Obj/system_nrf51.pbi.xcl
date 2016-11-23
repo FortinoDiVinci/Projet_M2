@@ -1,4 +1,4 @@
-"Z:\GitHub\Projet_M2\Board\nrf6310\template_project\initialization.c"
+"Z:\GitHub\Projet_M2\Source\templates\system_nrf51.c"
 -std=c99
 -ferror-limit=100
 -I
