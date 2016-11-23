@@ -185,6 +185,7 @@ void TIMER0_IRQHandler(void)
 
 int main(void)
 {
+  int16_t a=0;
   bool ret0;
 /** GPIOTE interrupt handler.
 * Triggered on motion interrupt pin input low-to-high transition.
@@ -210,10 +211,20 @@ int main(void)
    
     write_data(0x3F,0X10);  // set accelrometre (get mesure : 52 hz; scall:+-16g filter :50hz)
 //    write_data(0x33,0x10);     // set accelerometre (get mesure: 52hz scall:+-2g filter :50hz)
-    read_data(0x10);        // check value
+//    read_data(0x10);        // check value
+    
+    write_data(0x01,0x08);
+    write_data(0x1E,0x06);
+    write_data(0x1E,0x0A);
+    write_data(0x01,0x13);
+   
 
     while (true)
     {
+      read_data(0x3F);
+      a=((int16_t)rx_data[1]<<8);
+      read_data(0x3E);
+      a=+(int16_t)rx_data[1];
       read_ac_value(&x_acceleration,&y_acceleration,&z_acceleration);
       __WFI();
     }
