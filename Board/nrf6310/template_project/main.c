@@ -36,6 +36,60 @@
 static uint8_t tx_data[TX_RX_MSG_LENGTH]; /*!< SPI TX buffer */
 static uint8_t rx_data[TX_RX_MSG_LENGTH]; /*!< SPI RX buffer */
 
+/* The function write_data set the register */
+bool write_data(uint8_t data, uint8_t adress )
+{
+  uint32_t *spi_base_address = spi_master_init(SPI0, SPI_MODE0,0);
+  if (spi_base_address == 0)
+  {
+    return false;
+  }
+  tx_data[0]=adress&0x7F; // tranmit adress with MSB set to 0 must be changed for power consumption
+  tx_data[1]=data;
+  
+  if(!spi_master_tx_rx(spi_base_address, 2, (const uint8_t *)tx_data, rx_data) )
+    return false;
+  return true;
+}
+
+//bool init_fifo()
+//{
+//   
+//}
+
+bool read_data(uint8_t adress)
+{
+  uint32_t *spi_base_address = spi_master_init(SPI0, SPI_MODE0,0);
+  if (spi_base_address == 0)
+  {
+    return false;
+  }
+  tx_data[0]=adress|0x80; // tranmit adress with MSB set to 1 must be changed for power consumption
+  tx_data[1]=0;
+  
+  if(!spi_master_tx_rx(spi_base_address, 2 , (const uint8_t *)tx_data, rx_data) )
+    return false;
+  return true;
+}
+
+bool read_ac_value(int16_t* x_acceleration,int16_t* y_acceleration,int16_t* z_acceleration)
+{
+  uint32_t *spi_base_address = spi_master_init(SPI0, SPI_MODE0, 0);
+  if (spi_base_address == 0)
+  {
+    return false;
+  }
+  tx_data[0]=0xA8;
+  tx_data[1]=0;
+  if(!spi_master_tx_rx(spi_base_address, 7 , (const uint8_t *)tx_data, rx_data) )
+    return false;
+  
+  *x_acceleration=(((int16_t)rx_data[2])<<8)+(int16_t)rx_data[1];
+  *y_acceleration=(((int16_t)rx_data[4])<<8)+(int16_t)rx_data[3];
+  *z_acceleration=(((int16_t)rx_data[6])<<8)+(int16_t)rx_data[5];
+  
+  return true;
+}
 static bool test_spi_tx_rx(SPIModuleNumber mod_num, uint8_t lsb_first)
 {
   // Use SPI0, mode0 with lsb shifted as requested
@@ -131,36 +185,37 @@ void TIMER0_IRQHandler(void)
 
 int main(void)
 {
+  bool ret0;
 /** GPIOTE interrupt handler.
 * Triggered on motion interrupt pin input low-to-high transition.
 */
-
+  int16_t x_acceleration=0,y_acceleration=0,z_acceleration=0;
+  
   gpiote_init();
+  timer_init();
   // Enable GPIOTE interrupt in Nested Vector Interrupt Controller
   NVIC_EnableIRQ(GPIOTE_IRQn);
   nrf_gpio_cfg_output(LED2);
   nrf_gpio_cfg_output(LED);
   
-  timer_init();
-  
   NVIC_EnableIRQ(TIMER0_IRQn);
-  
-   bool ret0;
-
-  NRF_GPIO->DIRSET = (1UL << ERROR_PIN_SPI0);
   
    // SPI0
    ret0 = test_spi_tx_rx(SPI0, 1 );   /*!< test with shift Lsb first mode 0 */
-
    if (!ret0)
    {
      // Set gpio pin number ERROR_PIN to convey error, this pin can be connected to LED for visual debug
      NRF_GPIO->OUTSET = (1UL << ERROR_PIN_SPI0);
    }
+   
+    write_data(0x3F,0X10);  // set accelrometre (get mesure : 52 hz; scall:+-16g filter :50hz)
+//    write_data(0x33,0x10);     // set accelerometre (get mesure: 52hz scall:+-2g filter :50hz)
+    read_data(0x10);        // check value
 
     while (true)
     {
-      //__WFI();
+      read_ac_value(&x_acceleration,&y_acceleration,&z_acceleration);
+      __WFI();
     }
 }
 

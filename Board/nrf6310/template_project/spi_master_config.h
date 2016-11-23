@@ -39,7 +39,7 @@
 /** @def  TX_RX_MSG_LENGTH
  * number of bytes to transmit and receive. This amount of bytes will also be tested to see that
  * the received bytes from slave are the same as the transmitted bytes from the master */
-#define TX_RX_MSG_LENGTH   2
+#define TX_RX_MSG_LENGTH   8
 
 /** @def ERROR_PIN_SPI0
  * This pin is set active high when there is an error either in TX/RX for SPI0 or if the received bytes does not totally match the transmitted bytes.
