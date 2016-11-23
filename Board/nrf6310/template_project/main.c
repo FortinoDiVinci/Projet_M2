@@ -213,7 +213,7 @@ int main(void)
 //    write_data(0x33,0x10);     // set accelerometre (get mesure: 52hz scall:+-2g filter :50hz)
 //    read_data(0x10);        // check value
     
-    write_data(0x01,0x08);
+    write_data(0x01,0x08);  // initialisation de la fifo 
     write_data(0x1E,0x06);
     write_data(0x1E,0x0A);
     write_data(0x01,0x13);
