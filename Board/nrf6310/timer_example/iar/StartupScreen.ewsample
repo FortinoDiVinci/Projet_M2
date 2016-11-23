@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<exampleInfo>
+  <copyDir>..\..\timer_example</copyDir>
+  <copyDir>..\..\..\..\Include</copyDir>
+  <copyDir>..\..\..\..\Source</copyDir>
+</exampleInfo>
+
