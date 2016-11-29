@@ -185,7 +185,7 @@ void TIMER0_IRQHandler(void)
 
 int main(void)
 {
-  int16_t a=0;
+  int16_t a=0,b=0;
   bool ret0;
 /** GPIOTE interrupt handler.
 * Triggered on motion interrupt pin input low-to-high transition.
@@ -213,14 +213,24 @@ int main(void)
 //    write_data(0x33,0x10);     // set accelerometre (get mesure: 52hz scall:+-2g filter :50hz)
 //    read_data(0x10);        // check value
     
-    write_data(0x01,0x08);  // initialisation de la fifo 
-    write_data(0x1E,0x06);
-    write_data(0x1E,0x0A);
-    write_data(0x01,0x13);
+   
+//    write_data(0x01,0x08);  // initialisation de la fifo 
+//    write_data(0x1E,0x06);
+//    write_data(0x1E,0x0A);
+//    write_data(0x01,0x13);
+//    write_data(0x44,0x12); // disactivate BDU and ativve IF_INC
+   
+   write_data(0x10,0x15);  // disable high-performance mode for accelerometre 
+   
    
 
     while (true)
     {
+      read_data(0x3C);
+      b=(int16_t)rx_data[1];
+      read_data(0x3D);
+      b=b+((int16_t)rx_data[1]<<8)&0x03FF; // mask to set 00000xx
+      
       read_data(0x3F);
       a=((int16_t)rx_data[1]<<8);
       read_data(0x3E);
