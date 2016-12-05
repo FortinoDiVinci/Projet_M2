@@ -33,9 +33,13 @@
 #include "common.h"
 #include "spi_master_config.h"
 
+#define INC 4
+#define DEC 1
+#define THRESH 50
+#define MAX 100
 static uint8_t tx_data[TX_RX_MSG_LENGTH]; /*!< SPI TX buffer */
 static uint8_t rx_data[TX_RX_MSG_LENGTH]; /*!< SPI RX buffer */
-
+uint8_t pulse_count = 0;
 /* The function write_data set the register */
 bool write_data(uint8_t data, uint8_t adress )
 {
@@ -169,13 +173,37 @@ void timer_init();
 
 void GPIOTE_IRQHandler(void)
 {
-  nrf_gpio_pin_toggle(LED);
+  if (pulse_count == 0)
+  {
+    NRF_TIMER0->TASKS_START=1;
+    pulse_count += INC;
+  }
+  else if (pulse_count < MAX-INC)
+  {
+    pulse_count += INC;
+  }
+    
   // Event causing the interrupt must be cleared
   NRF_GPIOTE->EVENTS_IN[0] = 0;
+  NVIC_DisableIRQ(GPIOTE_IRQn);
+  
 }
 
 void TIMER0_IRQHandler(void)
 {
+  NVIC_EnableIRQ(GPIOTE_IRQn);
+  if (pulse_count > DEC)
+  {
+    pulse_count -= DEC;
+  }
+  if(pulse_count > THRESH)
+  {
+    nrf_gpio_pin_set(LED2);
+  }
+  else 
+  {
+    nrf_gpio_pin_clear(LED2);
+  }
   if((NRF_TIMER0->EVENTS_COMPARE[0]==1) && (NRF_TIMER0->INTENSET & TIMER_INTENSET_COMPARE0_Msk))
   {
     NRF_TIMER0->EVENTS_COMPARE[0]=0;
@@ -196,46 +224,47 @@ int main(void)
   timer_init();
   // Enable GPIOTE interrupt in Nested Vector Interrupt Controller
   NVIC_EnableIRQ(GPIOTE_IRQn);
+  NVIC_EnableIRQ(TIMER0_IRQn);
   nrf_gpio_cfg_output(LED2);
   nrf_gpio_cfg_output(LED);
   
-  NVIC_EnableIRQ(TIMER0_IRQn);
   
-   // SPI0
-   ret0 = test_spi_tx_rx(SPI0, 1 );   /*!< test with shift Lsb first mode 0 */
-   if (!ret0)
-   {
-     // Set gpio pin number ERROR_PIN to convey error, this pin can be connected to LED for visual debug
-     NRF_GPIO->OUTSET = (1UL << ERROR_PIN_SPI0);
-   }
-   
-    write_data(0x3F,0X10);  // set accelrometre (get mesure : 52 hz; scall:+-16g filter :50hz)
-//    write_data(0x33,0x10);     // set accelerometre (get mesure: 52hz scall:+-2g filter :50hz)
-//    read_data(0x10);        // check value
-    
-   
-//    write_data(0x01,0x08);  // initialisation de la fifo 
-//    write_data(0x1E,0x06);
-//    write_data(0x1E,0x0A);
-//    write_data(0x01,0x13);
-//    write_data(0x44,0x12); // disactivate BDU and ativve IF_INC
-   
-   write_data(0x10,0x15);  // disable high-performance mode for accelerometre 
+  
+//   // SPI0
+//   ret0 = test_spi_tx_rx(SPI0, 1 );   /*!< test with shift Lsb first mode 0 */
+//   if (!ret0)
+//   {
+//     // Set gpio pin number ERROR_PIN to convey error, this pin can be connected to LED for visual debug
+//     NRF_GPIO->OUTSET = (1UL << ERROR_PIN_SPI0);
+//   }
+//   
+//    write_data(0x3F,0X10);  // set accelrometre (get mesure : 52 hz; scall:+-16g filter :50hz)
+////    write_data(0x33,0x10);     // set accelerometre (get mesure: 52hz scall:+-2g filter :50hz)
+////    read_data(0x10);        // check value
+//    
+//   
+////    write_data(0x01,0x08);  // initialisation de la fifo 
+////    write_data(0x1E,0x06);
+////    write_data(0x1E,0x0A);
+////    write_data(0x01,0x13);
+////    write_data(0x44,0x12); // disactivate BDU and ativve IF_INC
+//   
+//   write_data(0x10,0x15);  // disable high-performance mode for accelerometre 
    
    
 
     while (true)
     {
-      read_data(0x3C);
-      b=(int16_t)rx_data[1];
-      read_data(0x3D);
-      b=b+((int16_t)rx_data[1]<<8)&0x03FF; // mask to set 00000xx
-      
-      read_data(0x3F);
-      a=((int16_t)rx_data[1]<<8);
-      read_data(0x3E);
-      a=+(int16_t)rx_data[1];
-      read_ac_value(&x_acceleration,&y_acceleration,&z_acceleration);
+//      read_data(0x3C);
+//      b=(int16_t)rx_data[1];
+//      read_data(0x3D);
+//      b=b+((int16_t)rx_data[1]<<8)&0x03FF; // mask to set 00000xx
+//      
+//      read_data(0x3F);
+//      a=((int16_t)rx_data[1]<<8);
+//      read_data(0x3E);
+//      a=+(int16_t)rx_data[1];
+//      read_ac_value(&x_acceleration,&y_acceleration,&z_acceleration);
       __WFI();
     }
 }
@@ -250,11 +279,11 @@ void timer_init()
   NRF_TIMER0->PRESCALER=0x9UL; // initiliaze the prescaler to the value 9
   NRF_TIMER0->MODE=TIMER_MODE_MODE_Timer<< TIMER_MODE_MODE_Pos; // Mode timer
   NRF_TIMER0->BITMODE=TIMER_BITMODE_BITMODE_16Bit<< TIMER_BITMODE_BITMODE_Pos; // Mode 16 bits
-  NRF_TIMER0->CC[0]=0x2FFF;
+  NRF_TIMER0->CC[0]=0xC25;
   NRF_TIMER0->INTENSET=TIMER_INTENSET_COMPARE0_Enabled << TIMER_INTENSET_COMPARE0_Pos ;
   NRF_TIMER0->TASKS_CLEAR = 1;
   NRF_TIMER0->EVENTS_COMPARE[0]=0;
   NRF_TIMER0->SHORTS=TIMER_SHORTS_COMPARE0_CLEAR_Enabled<< TIMER_SHORTS_COMPARE0_CLEAR_Pos;
-  NRF_TIMER0->TASKS_START=1; 
+  
 }
 
