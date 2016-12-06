@@ -35,7 +35,7 @@
 
 #define INC 4
 #define DEC 1
-#define THRESH 50
+#define THRESH 70
 #define MAX 100
 static uint8_t tx_data[TX_RX_MSG_LENGTH]; /*!< SPI TX buffer */
 static uint8_t rx_data[TX_RX_MSG_LENGTH]; /*!< SPI RX buffer */
@@ -173,6 +173,8 @@ void timer_init();
 
 void GPIOTE_IRQHandler(void)
 {
+  
+  
   if (pulse_count == 0)
   {
     NRF_TIMER0->TASKS_START=1;
@@ -191,8 +193,14 @@ void GPIOTE_IRQHandler(void)
 
 void TIMER0_IRQHandler(void)
 {
+   nrf_gpio_pin_toggle(LED);
+  
   NVIC_EnableIRQ(GPIOTE_IRQn);
-  if (pulse_count > DEC)
+  if (pulse_count  <DEC)
+  {
+//     NRF_TIMER0->TASKS_CLEAR = 1;
+  }
+  else if (pulse_count > DEC)
   {
     pulse_count -= DEC;
   }
@@ -231,41 +239,41 @@ int main(void)
   
   
 //   // SPI0
-//   ret0 = test_spi_tx_rx(SPI0, 1 );   /*!< test with shift Lsb first mode 0 */
-//   if (!ret0)
-//   {
-//     // Set gpio pin number ERROR_PIN to convey error, this pin can be connected to LED for visual debug
-//     NRF_GPIO->OUTSET = (1UL << ERROR_PIN_SPI0);
-//   }
-//   
-//    write_data(0x3F,0X10);  // set accelrometre (get mesure : 52 hz; scall:+-16g filter :50hz)
-////    write_data(0x33,0x10);     // set accelerometre (get mesure: 52hz scall:+-2g filter :50hz)
-////    read_data(0x10);        // check value
-//    
-//   
-////    write_data(0x01,0x08);  // initialisation de la fifo 
-////    write_data(0x1E,0x06);
-////    write_data(0x1E,0x0A);
-////    write_data(0x01,0x13);
-////    write_data(0x44,0x12); // disactivate BDU and ativve IF_INC
-//   
-//   write_data(0x10,0x15);  // disable high-performance mode for accelerometre 
+   ret0 = test_spi_tx_rx(SPI0, 1 );   /*!< test with shift Lsb first mode 0 */
+   if (!ret0)
+   {
+     // Set gpio pin number ERROR_PIN to convey error, this pin can be connected to LED for visual debug
+     NRF_GPIO->OUTSET = (1UL << ERROR_PIN_SPI0);
+   }
+   
+    write_data(0x3F,0X10);  // set accelrometre (get mesure : 52 hz; scall:+-16g filter :50hz)
+    write_data(0x33,0x10);     // set accelerometre (get mesure: 52hz scall:+-2g filter :50hz)
+    read_data(0x10);        // check value
+    
+   
+    write_data(0x01,0x08);  // initialisation de la fifo 
+    write_data(0x1E,0x06);
+    write_data(0x1E,0x0A);
+    write_data(0x01,0x13);
+    write_data(0x44,0x12); // disactivate BDU and ativve IF_INC
+   
+   write_data(0x10,0x15);  // disable high-performance mode for accelerometre 
    
    
 
     while (true)
     {
-//      read_data(0x3C);
-//      b=(int16_t)rx_data[1];
-//      read_data(0x3D);
-//      b=b+((int16_t)rx_data[1]<<8)&0x03FF; // mask to set 00000xx
-//      
-//      read_data(0x3F);
-//      a=((int16_t)rx_data[1]<<8);
-//      read_data(0x3E);
-//      a=+(int16_t)rx_data[1];
-//      read_ac_value(&x_acceleration,&y_acceleration,&z_acceleration);
-      __WFI();
+      read_data(0x3C);
+      b=(int16_t)rx_data[1];
+      read_data(0x3D);
+      b=b+((int16_t)rx_data[1]<<8)&0x03FF; // mask to set 00000xx
+      
+      read_data(0x3F);
+      a=((int16_t)rx_data[1]<<8);
+      read_data(0x3E);
+      a=+(int16_t)rx_data[1];
+      read_ac_value(&x_acceleration,&y_acceleration,&z_acceleration);
+//      __WFI();
     }
 }
 
