@@ -105,5 +105,13 @@ bool spi_master_tx_rx(uint32_t *spi_base_address, uint16_t transfer_size, const 
 /**
  *@}
  **/
+
+
+bool write_data(uint8_t data, uint8_t adress );
+
+bool read_data(uint8_t adress);
+
+bool read_ac_value(int16_t* x_acceleration,int16_t* y_acceleration,int16_t* z_acceleration);
+
  
 #endif /* SPI_MASTER_H */

@@ -8,6 +8,8 @@
 #define BUTTON 17
 
  void gpiote_init(void);
+void timerVib_init();
+void timerSPI_init();
 
 #endif
 

@@ -142,3 +142,64 @@ bool spi_master_tx_rx(uint32_t *spi_base_address, uint16_t transfer_size, const 
 
     return true;
 }
+
+/* The function write_data set the register */
+bool write_data(uint8_t data, uint8_t adress )
+{
+  uint8_t tx_data[2];
+  uint8_t rx_data[2];
+  uint32_t *spi_base_address = spi_master_init(SPI0, SPI_MODE0,0);
+  if (spi_base_address == 0)
+  {
+    return false;
+  }
+  tx_data[0]=adress&0x7F; // tranmit adress with MSB set to 0 must be changed for power consumption
+  tx_data[1]=data;
+  
+  if(!spi_master_tx_rx(spi_base_address, 2, (const uint8_t *)tx_data, rx_data) )
+    return false;
+  return true;
+}
+
+//bool init_fifo()
+//{
+//   
+//}
+
+bool read_data(uint8_t adress)
+{
+  uint8_t tx_data[2];
+  uint8_t rx_data[2];
+  uint32_t *spi_base_address = spi_master_init(SPI0, SPI_MODE0,0);
+  if (spi_base_address == 0)
+  {
+    return false;
+  }
+  tx_data[0]=adress|0x80; // tranmit adress with MSB set to 1 must be changed for power consumption
+  tx_data[1]=0;
+  
+  if(!spi_master_tx_rx(spi_base_address, 2 , (const uint8_t *)tx_data, rx_data) )
+    return false;
+  return true;
+}
+
+bool read_ac_value(int16_t* x_acceleration,int16_t* y_acceleration,int16_t* z_acceleration)
+{
+  uint8_t tx_data[2];
+  uint8_t rx_data[7];
+  uint32_t *spi_base_address = spi_master_init(SPI0, SPI_MODE0, 0);
+  if (spi_base_address == 0)
+  {
+    return false;
+  }
+  tx_data[0]=0xA8;
+  tx_data[1]=0;
+  if(!spi_master_tx_rx(spi_base_address, 7 , (const uint8_t *)tx_data, rx_data) )
+    return false;
+  
+  *x_acceleration=(((int16_t)rx_data[2])<<8)+(int16_t)rx_data[1];
+  *y_acceleration=(((int16_t)rx_data[4])<<8)+(int16_t)rx_data[3];
+  *z_acceleration=(((int16_t)rx_data[6])<<8)+(int16_t)rx_data[5];
+  
+  return true;
+}
