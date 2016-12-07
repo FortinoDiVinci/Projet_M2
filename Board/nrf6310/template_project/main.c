@@ -33,13 +33,21 @@
 #include "common.h"
 #include "spi_master_config.h"
 
+#define MAX_LENGTH_SAMPLE 10
 #define INC 4
 #define DEC 1
-#define THRESH 70
-#define MAX 100
+#define THRESH 50
+#define MAX 150
 static uint8_t tx_data[TX_RX_MSG_LENGTH]; /*!< SPI TX buffer */
 static uint8_t rx_data[TX_RX_MSG_LENGTH]; /*!< SPI RX buffer */
-uint8_t pulse_count = 0;
+uint8_t pulse_count = 0, sample_count = 1;
+uint8_t start = 0;
+int32_t x_acceleration=0,y_acceleration=0,z_acceleration=0;
+
+static int16_t x_acc_samples[MAX_LENGTH_SAMPLE]; /*acceleration x samples*/
+static int16_t y_acc_samples[MAX_LENGTH_SAMPLE]; /*acceleration y samples */
+static int16_t z_acc_samples[MAX_LENGTH_SAMPLE]; /*acceleration z samples */
+
 /* The function write_data set the register */
 bool write_data(uint8_t data, uint8_t adress )
 {
@@ -169,14 +177,15 @@ static bool test_spi_tx_rx(SPIModuleNumber mod_num, uint8_t lsb_first)
  * \return 0. int return type required by ANSI/ISO standard. 
  */
 
-void timer_init();
-
+void timerVib_init();
+void timerSPI_init();
 void GPIOTE_IRQHandler(void)
 {
   
   
   if (pulse_count == 0)
   {
+    NVIC_EnableIRQ(TIMER0_IRQn);
     NRF_TIMER0->TASKS_START=1;
     pulse_count += INC;
   }
@@ -193,12 +202,14 @@ void GPIOTE_IRQHandler(void)
 
 void TIMER0_IRQHandler(void)
 {
-   nrf_gpio_pin_toggle(LED);
+  nrf_gpio_pin_toggle(LED);
   
   NVIC_EnableIRQ(GPIOTE_IRQn);
-  if (pulse_count  <DEC)
+  if (pulse_count  <= DEC)
   {
+      NVIC_DisableIRQ(TIMER0_IRQn);
 //     NRF_TIMER0->TASKS_CLEAR = 1;
+      pulse_count = 0;
   }
   else if (pulse_count > DEC)
   {
@@ -207,10 +218,12 @@ void TIMER0_IRQHandler(void)
   if(pulse_count > THRESH)
   {
     nrf_gpio_pin_set(LED2);
+    start =1;
   }
   else 
   {
     nrf_gpio_pin_clear(LED2);
+    start = 0;
   }
   if((NRF_TIMER0->EVENTS_COMPARE[0]==1) && (NRF_TIMER0->INTENSET & TIMER_INTENSET_COMPARE0_Msk))
   {
@@ -218,62 +231,77 @@ void TIMER0_IRQHandler(void)
     //NRF_TIMER0->TASKS_START=1;
   }
 }
+void TIMER1_IRQHandler(void)
+{
+ 
+  read_ac_value(&x_acc_samples[sample_count],&y_acc_samples[sample_count],&z_acc_samples[sample_count]);
+  sample_count += 1;
+  
+  if((NRF_TIMER1->EVENTS_COMPARE[0]==1) && (NRF_TIMER1->INTENSET & TIMER_INTENSET_COMPARE0_Msk))
+  {
+    NRF_TIMER1->EVENTS_COMPARE[0]=0;
+    //NRF_TIMER0->TASKS_START=1;
+  }
+}
 
 int main(void)
 {
-  int16_t a=0,b=0;
   bool ret0;
 /** GPIOTE interrupt handler.
 * Triggered on motion interrupt pin input low-to-high transition.
 */
-  int16_t x_acceleration=0,y_acceleration=0,z_acceleration=0;
+  
   
   gpiote_init();
-  timer_init();
+  timerVib_init();
   // Enable GPIOTE interrupt in Nested Vector Interrupt Controller
-  NVIC_EnableIRQ(GPIOTE_IRQn);
+  timerSPI_init();
   NVIC_EnableIRQ(TIMER0_IRQn);
+  
   nrf_gpio_cfg_output(LED2);
   nrf_gpio_cfg_output(LED);
   
-  
-  
+  ret0 = test_spi_tx_rx(SPI0, 1 );   /*!< test with shift Lsb first mode 0 */
+  gpiote_init();
+  NVIC_EnableIRQ(GPIOTE_IRQn);
 //   // SPI0
-   ret0 = test_spi_tx_rx(SPI0, 1 );   /*!< test with shift Lsb first mode 0 */
-   if (!ret0)
-   {
-     // Set gpio pin number ERROR_PIN to convey error, this pin can be connected to LED for visual debug
-     NRF_GPIO->OUTSET = (1UL << ERROR_PIN_SPI0);
-   }
-   
+ 
+  
     write_data(0x3F,0X10);  // set accelrometre (get mesure : 52 hz; scall:+-16g filter :50hz)
-    write_data(0x33,0x10);     // set accelerometre (get mesure: 52hz scall:+-2g filter :50hz)
-    read_data(0x10);        // check value
-    
-   
-    write_data(0x01,0x08);  // initialisation de la fifo 
-    write_data(0x1E,0x06);
-    write_data(0x1E,0x0A);
-    write_data(0x01,0x13);
-    write_data(0x44,0x12); // disactivate BDU and ativve IF_INC
-   
-   write_data(0x10,0x15);  // disable high-performance mode for accelerometre 
-   
-   
-
+    //write_data(0x33,0x10);     // set accelerometre (get mesure: 52hz scall:+-2g filter :50hz)
+    read_data(0x10);        // check value 
+    write_data(0x10,0x15);  // disable high-performance mode for accelerometre 
     while (true)
     {
-      read_data(0x3C);
-      b=(int16_t)rx_data[1];
-      read_data(0x3D);
-      b=b+((int16_t)rx_data[1]<<8)&0x03FF; // mask to set 00000xx
       
-      read_data(0x3F);
-      a=((int16_t)rx_data[1]<<8);
-      read_data(0x3E);
-      a=+(int16_t)rx_data[1];
-      read_ac_value(&x_acceleration,&y_acceleration,&z_acceleration);
-//      __WFI();
+      if( start == 1)
+      { 
+        NRF_TIMER1->TASKS_START=1;
+        NVIC_EnableIRQ(TIMER1_IRQn);
+        while(start == 1)
+        {
+          __WFI();
+          if(sample_count == MAX_LENGTH_SAMPLE)
+          {
+            x_acceleration=0,y_acceleration=0,z_acceleration=0;
+            for (uint8_t i =0; i< MAX_LENGTH_SAMPLE; i++)
+            {
+               x_acceleration += x_acc_samples[i];
+               y_acceleration += y_acc_samples[i];
+               z_acceleration += z_acc_samples[i];
+            }
+            x_acceleration = x_acceleration/MAX_LENGTH_SAMPLE;
+            y_acceleration = y_acceleration/MAX_LENGTH_SAMPLE;
+            z_acceleration = z_acceleration/MAX_LENGTH_SAMPLE;
+            sample_count = 1;
+          }
+        }
+      }
+      else 
+      {
+        NVIC_DisableIRQ(TIMER1_IRQn);
+       __WFI();
+      }
     }
 }
 
@@ -281,13 +309,13 @@ int main(void)
  *@}
  **/
 
-void timer_init()
+void timerVib_init()
 {
   NRF_TIMER0->TASKS_STOP=1;
   NRF_TIMER0->PRESCALER=0x9UL; // initiliaze the prescaler to the value 9
   NRF_TIMER0->MODE=TIMER_MODE_MODE_Timer<< TIMER_MODE_MODE_Pos; // Mode timer
   NRF_TIMER0->BITMODE=TIMER_BITMODE_BITMODE_16Bit<< TIMER_BITMODE_BITMODE_Pos; // Mode 16 bits
-  NRF_TIMER0->CC[0]=0xC25;
+  NRF_TIMER0->CC[0]=0x1E85; //500 ms period
   NRF_TIMER0->INTENSET=TIMER_INTENSET_COMPARE0_Enabled << TIMER_INTENSET_COMPARE0_Pos ;
   NRF_TIMER0->TASKS_CLEAR = 1;
   NRF_TIMER0->EVENTS_COMPARE[0]=0;
@@ -295,3 +323,16 @@ void timer_init()
   
 }
 
+void timerSPI_init()
+{
+  NRF_TIMER1->TASKS_STOP=1;
+  NRF_TIMER1->PRESCALER=0x9UL; // initiliaze the prescaler to the value 9
+  NRF_TIMER1->MODE=TIMER_MODE_MODE_Timer<< TIMER_MODE_MODE_Pos; // Mode timer
+  NRF_TIMER1->BITMODE=TIMER_BITMODE_BITMODE_16Bit<< TIMER_BITMODE_BITMODE_Pos; // Mode 16 bits
+  NRF_TIMER1->CC[0]=0x139; // 20 ms period
+  NRF_TIMER1->INTENSET=TIMER_INTENSET_COMPARE0_Enabled << TIMER_INTENSET_COMPARE0_Pos ;
+  NRF_TIMER1->TASKS_CLEAR = 1;
+  NRF_TIMER1->EVENTS_COMPARE[0]=0;
+  NRF_TIMER1->SHORTS=TIMER_SHORTS_COMPARE0_CLEAR_Enabled<< TIMER_SHORTS_COMPARE0_CLEAR_Pos;
+  
+}

@@ -6,49 +6,49 @@
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$PROJ_DIR$\..\..\..\..\Source\spi_master\spi_master_config.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\Include\common.h</file>
-      <file>$TOOLKIT_DIR$\lib\rt6M_tl.a</file>
-      <file>$PROJ_DIR$\..\..\..\..\Include\nrf_delay.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.o</file>
-      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\Include\system_nrf51.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\spi_master.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
-      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cmInstr.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\Include\compiler_abstraction.h</file>
-      <file>$TOOLKIT_DIR$\lib\dl6M_tln.a</file>
-      <file>$TOOLKIT_DIR$\lib\m6M_tl.a</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
       <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\spi_master.o</file>
-      <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
-      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
-      <file>$TOOLKIT_DIR$\config\linker\NordicSemi\nRF51822_QFAA.icf</file>
-      <file>$PROJ_DIR$\Debug\List\template_project.map</file>
-      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\system_nrf51.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\initialization.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
       <file>$PROJ_DIR$\..\initialization.h</file>
       <file>$PROJ_DIR$\..\initialization.c</file>
       <file>$PROJ_DIR$\..\..\..\..\Source\templates\iar\iar_startup_nrf51.s</file>
       <file>$PROJ_DIR$\..\main.c</file>
       <file>$PROJ_DIR$\..\spi_master_config.h</file>
       <file>$PROJ_DIR$\..\..\..\..\Source\spi_master\spi_master.c</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
       <file>$PROJ_DIR$\..\..\..\..\Source\templates\system_nrf51.c</file>
-      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cmFunc.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\Source\spi_master\spi_master_config.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\Include\common.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdint.h</file>
+      <file>$PROJ_DIR$\..\..\..\..\Include\nrf_delay.h</file>
+      <file>$TOOLKIT_DIR$\lib\rt6M_tl.a</file>
+      <file>$PROJ_DIR$\..\..\..\..\Include\system_nrf51.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\spi_master.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cmInstr.h</file>
+      <file>$TOOLKIT_DIR$\lib\dl6M_tln.a</file>
+      <file>$PROJ_DIR$\..\..\..\..\Include\compiler_abstraction.h</file>
+      <file>$TOOLKIT_DIR$\lib\m6M_tl.a</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Threads.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\spi_master.o</file>
+      <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
+      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
+      <file>$TOOLKIT_DIR$\config\linker\NordicSemi\nRF51822_QFAA.icf</file>
+      <file>$PROJ_DIR$\Debug\List\template_project.map</file>
+      <file>$PROJ_DIR$\Debug\Obj\system_nrf51.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\cmsis_iar.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\initialization.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
       <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\Include\nrf51_bitfields.h</file>
+      <file>$TOOLKIT_DIR$\CMSIS\Include\core_cmFunc.h</file>
       <file>$PROJ_DIR$\Debug\Obj\iar_startup_nrf51.o</file>
+      <file>$PROJ_DIR$\..\..\..\..\Include\nrf51_bitfields.h</file>
       <file>$PROJ_DIR$\Debug\Exe\template_project.out</file>
       <file>$TOOLKIT_DIR$\CMSIS\Include\core_cm0.h</file>
-      <file>$PROJ_DIR$\..\..\..\..\Include\nrf51_deprecated.h</file>
       <file>$PROJ_DIR$\Debug\Obj\initialization.o</file>
+      <file>$PROJ_DIR$\..\..\..\..\Include\nrf51_deprecated.h</file>
       <file>$PROJ_DIR$\..\..\..\..\Include\nrf_gpio.h</file>
       <file>$PROJ_DIR$\..\..\..\..\Include\spi_master.h</file>
       <file>$PROJ_DIR$\Debug\Exe\template_project_iar.hex</file>
@@ -63,7 +63,7 @@
       <outputs>
         <tool>
           <name>ILINK</name>
-          <file> 39 21</file>
+          <file> 39 29</file>
         </tool>
       </outputs>
     </file>
@@ -72,21 +72,21 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
-          <file> 42</file>
+          <file> 41</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 25</file>
+          <file> 32</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
-          <file> 15 6 1 19 33 26 36 22 14 50 48 40 10 24 9 35 7 37 41 11 43 4 46 27</file>
+          <file> 1 13 8 26 34 33 35 27 23 50 48 40 19 31 18 36 16 38 42 21 43 14 46 2</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 14 9 22 10 24 43 48 50 46 1 33 19 41 7 6 4 26 36 37 11 40 35 15 27</file>
+          <file> 23 18 27 19 31 43 48 50 46 8 34 26 42 16 13 14 33 35 38 21 40 36 1 2</file>
         </tool>
       </inputs>
     </file>
@@ -95,7 +95,7 @@
       <outputs>
         <tool>
           <name>AARM</name>
-          <file> 38</file>
+          <file> 37</file>
         </tool>
       </outputs>
     </file>
@@ -104,21 +104,21 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
-          <file> 5</file>
+          <file> 12</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 16</file>
+          <file> 0</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
-          <file> 15 6 1 19 33 26 36 22 14 50 48 40 10 24 9 35 7 37 41 11 43 4 46 27 44 2 31</file>
+          <file> 1 13 8 26 34 33 35 27 23 50 48 40 19 31 18 36 16 38 42 21 43 14 46 2 44 11 6</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 22 10 44 14 9 43 48 24 15 50 46 31 1 33 19 41 7 6 4 27 2 26 36 37 11 40 35</file>
+          <file> 18 8 16 44 34 26 42 43 31 1 50 46 6 27 23 48 19 13 14 2 11 33 35 38 21 40 36</file>
         </tool>
       </inputs>
     </file>
@@ -127,21 +127,21 @@
       <outputs>
         <tool>
           <name>ICCARM</name>
-          <file> 17</file>
+          <file> 24</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 8</file>
+          <file> 17</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
-          <file> 44 15 6 1 19 33 26 36 22 14 4 50 48 40 10 24 9 35 7 37 41 11 43 2 0</file>
+          <file> 44 1 13 8 26 34 33 35 27 23 14 50 48 40 19 31 18 36 16 38 42 21 43 11 10</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 1 9 10 0 36 48 15 43 19 26 50 41 7 4 2 6 33 22 14 37 11 40 35 24 44</file>
+          <file> 8 18 19 10 35 48 1 43 26 33 50 42 16 14 11 13 34 27 23 38 21 40 36 31 44</file>
         </tool>
       </inputs>
     </file>
@@ -154,17 +154,17 @@
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 23</file>
+          <file> 30</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>ICCARM</name>
-          <file> 6 1 19 33 26 36 22 14 15 50 48 40 10 24 9 35 7 37 41 11</file>
+          <file> 13 8 26 34 33 35 27 23 1 50 48 40 19 31 18 36 16 38 42 21</file>
         </tool>
         <tool>
           <name>BICOMP</name>
-          <file> 48 36 1 40 6 24 35 50 19 26 41 15 33 22 14 37 7 10 9 11</file>
+          <file> 48 35 8 40 13 31 36 50 26 33 42 1 34 27 23 38 16 19 18 21</file>
         </tool>
       </inputs>
     </file>
@@ -173,7 +173,7 @@
       <outputs>
         <tool>
           <name>ILINK</name>
-          <file> 21</file>
+          <file> 29</file>
         </tool>
         <tool>
           <name>OBJCOPY</name>
@@ -183,7 +183,7 @@
       <inputs>
         <tool>
           <name>ILINK</name>
-          <file> 20 38 42 5 17 49 18 3 13 12</file>
+          <file> 28 37 41 12 24 49 25 15 22 20</file>
         </tool>
       </inputs>
     </file>
