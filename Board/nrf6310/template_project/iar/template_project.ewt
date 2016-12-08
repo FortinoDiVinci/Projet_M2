@@ -2327,6 +2327,12 @@
     <name>$PROJ_DIR$\..\main.c</name>
   </file>
   <file>
+    <name>$PROJ_DIR$\..\radio_config.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\..\radio_config.h</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\..\..\..\..\Source\spi_master\spi_master.c</name>
   </file>
   <file>
