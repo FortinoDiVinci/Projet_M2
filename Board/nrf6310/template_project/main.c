@@ -32,17 +32,18 @@
 #include "spi_master.h"
 #include "common.h"
 #include "spi_master_config.h"
+#include "radio_config.h"
 
 #define MAX_LENGTH_SAMPLE 10
 #define INC 4
 #define DEC 1
 #define THRESH 50
 #define MAX 150
-//static uint8_t tx_data[TX_RX_MSG_LENGTH]; /*!< SPI TX buffer */
-//static uint8_t rx_data[TX_RX_MSG_LENGTH]; /*!< SPI RX buffer */
+#define SIZE_PACKET 11
+
+
 uint8_t pulse_count = 0, sample_count = 1;
 uint8_t start = 0;
-int32_t x_acceleration=0,y_acceleration=0,z_acceleration=0;
 
 static int16_t x_acc_samples[MAX_LENGTH_SAMPLE]; /*acceleration x samples*/
 static int16_t y_acc_samples[MAX_LENGTH_SAMPLE]; /*acceleration y samples */
@@ -155,7 +156,8 @@ int main(void)
           __WFI();
           if(sample_count == MAX_LENGTH_SAMPLE)
           {
-            x_acceleration=0,y_acceleration=0,z_acceleration=0;
+            uint8_t data_to_send[SIZE_PACKET];
+            int32_t x_acceleration=0,y_acceleration=0,z_acceleration=0;
             for (uint8_t i =0; i< MAX_LENGTH_SAMPLE; i++)
             {
                x_acceleration += x_acc_samples[i];
@@ -166,6 +168,18 @@ int main(void)
             y_acceleration = y_acceleration/MAX_LENGTH_SAMPLE;
             z_acceleration = z_acceleration/MAX_LENGTH_SAMPLE;
             sample_count = 1;
+            data_to_send[0] = 0x05;                         // Set Length to 5 bytes
+            data_to_send[1] = 0xFF;                         // Write 1's to S1, for debug purposes
+            data_to_send[2] = (uint8_t) x_acceleration;
+            data_to_send[3] = (uint8_t) (x_acceleration>>8);
+            data_to_send[4] = (uint8_t) (x_acceleration>>16);
+            data_to_send[5] = (uint8_t) y_acceleration;
+            data_to_send[6] = (uint8_t) (y_acceleration>>8);
+            data_to_send[7] = (uint8_t) (y_acceleration>>16);
+            data_to_send[8] = (uint8_t) z_acceleration;
+            data_to_send[9] = (uint8_t) (z_acceleration>>8);
+            data_to_send[10] = (uint8_t) (z_acceleration>>16);
+            rf_send(data_to_send);
           }
         }
       }

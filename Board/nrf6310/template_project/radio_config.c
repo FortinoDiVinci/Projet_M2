@@ -142,7 +142,6 @@ void radio_configure()
 
 void rf_send(uint8_t *packet)
 {
-  uint32_t counter=0;
   
   /* Start 16 MHz crystal oscillator */
   NRF_CLOCK->EVENTS_HFCLKSTARTED = 0;
@@ -153,59 +152,39 @@ void rf_send(uint8_t *packet)
   {
   }
 
-  // Set Port 0 as input
-  nrf_gpio_range_cfg_input(0, 7, NRF_GPIO_PIN_NOPULL);
-
-  // Set Port 1 as output
-  nrf_gpio_range_cfg_output(8, 15);
-
   // Set radio configuration parameters
   radio_configure();
 
   // Set payload pointer
   NRF_RADIO->PACKETPTR = (uint32_t)packet;
 
-  while(1)
+  packet[1] = 0xFF;                         // Write 1's to S1, for debug purposes
+  packet[0] = 0x05;                         // Set Length to 5 bytes
+
+  NRF_RADIO->EVENTS_READY = 0U;
+    
+  // Enable radio and wait for ready
+  NRF_RADIO->TASKS_TXEN = 1;
+
+  while (NRF_RADIO->EVENTS_READY == 0U)
   {
-    // Read Data to send, button signals are default high, low on pressing
-    packet[6] = (uint8_t)(counter);
-    packet[5] = (uint8_t)(counter >> 8);
-    packet[4] = (uint8_t)(counter >> 16);
-    packet[3] = (uint8_t)(counter >> 24);
-    packet[2] = ~((uint8_t) (NRF_GPIO->IN));  // Write GPIO to payload byte 0
-    packet[1] = 0xFF;                         // Write 1's to S1, for debug purposes
-    packet[0] = 0x05;                         // Set Length to 5 bytes
+  }
 
-    NRF_RADIO->EVENTS_READY = 0U;
-    
-    // Enable radio and wait for ready
-    NRF_RADIO->TASKS_TXEN = 1;
+  // Start transmission and wait for end of packet.
+  NRF_RADIO->TASKS_START = 1U;
 
-    while (NRF_RADIO->EVENTS_READY == 0U)
-    {
-    }
+  NRF_RADIO->EVENTS_END = 0U;
+  
+  while(NRF_RADIO->EVENTS_END == 0U) // Wait for end
+  {
+  }
 
-    // Start transmission and wait for end of packet.
-    NRF_RADIO->TASKS_START = 1U;
+  NRF_RADIO->EVENTS_DISABLED = 0U;
 
-    NRF_RADIO->EVENTS_END = 0U;
-    
-    while(NRF_RADIO->EVENTS_END == 0U) // Wait for end
-    {
-    }
+  // Disable radio
+  NRF_RADIO->TASKS_DISABLE = 1U;
 
-    // Write sent data to port 1
-    nrf_gpio_port_write(NRF_GPIO_PORT_SELECT_PORT1, packet[2]);
-
-    NRF_RADIO->EVENTS_DISABLED = 0U;
-
-    // Disable radio
-    NRF_RADIO->TASKS_DISABLE = 1U;
-
-    while(NRF_RADIO->EVENTS_DISABLED == 0U)
-    {
-    }
-
-    counter++;
+  while(NRF_RADIO->EVENTS_DISABLED == 0U)
+  {
   }
 }

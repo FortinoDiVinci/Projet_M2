@@ -12,6 +12,9 @@
 #ifndef RADIO_CONFIG_H
 #define RADIO_CONFIG_H
 
+#include "nrf_gpio.h"
+
 void radio_configure(void);
+void rf_send(uint8_t *packet);
 
 #endif
