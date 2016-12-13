@@ -37,13 +37,13 @@
 #define MAX_LENGTH_SAMPLE 10
 #define INC 4
 #define DEC 1
-#define THRESH 50
+#define THRESH 25
 #define MAX 150
-#define SIZE_PACKET 11
+#define SIZE_PACKET 15
 
 
 uint8_t pulse_count = 0, sample_count = 1;
-uint8_t start = 0;
+uint8_t start = 1;
 
 static int16_t x_acc_samples[MAX_LENGTH_SAMPLE]; /*acceleration x samples*/
 static int16_t y_acc_samples[MAX_LENGTH_SAMPLE]; /*acceleration y samples */
@@ -130,13 +130,13 @@ int main(void)
   timerVib_init();
   // Enable GPIOTE interrupt in Nested Vector Interrupt Controller
   timerSPI_init();
-  NVIC_EnableIRQ(TIMER0_IRQn);
+//  NVIC_EnableIRQ(TIMER0_IRQn);
   
   nrf_gpio_cfg_output(LED2);
   nrf_gpio_cfg_output(LED);
   
   gpiote_init();
-  NVIC_EnableIRQ(GPIOTE_IRQn);
+//  NVIC_EnableIRQ(GPIOTE_IRQn);
 //   // SPI0
  
   
@@ -156,6 +156,9 @@ int main(void)
           __WFI();
           if(sample_count == MAX_LENGTH_SAMPLE)
           {
+            uint16_t x_acc=0;
+            uint16_t y_acc=0;
+            uint16_t z_acc=0;
             uint8_t data_to_send[SIZE_PACKET];
             int32_t x_acceleration=0,y_acceleration=0,z_acceleration=0;
             for (uint8_t i =0; i< MAX_LENGTH_SAMPLE; i++)
@@ -164,21 +167,22 @@ int main(void)
                y_acceleration += y_acc_samples[i];
                z_acceleration += z_acc_samples[i];
             }
-            x_acceleration = x_acceleration/MAX_LENGTH_SAMPLE;
-            y_acceleration = y_acceleration/MAX_LENGTH_SAMPLE;
-            z_acceleration = z_acceleration/MAX_LENGTH_SAMPLE;
+            x_acc = x_acceleration/MAX_LENGTH_SAMPLE;
+            y_acc = y_acceleration/MAX_LENGTH_SAMPLE;
+            z_acc = z_acceleration/MAX_LENGTH_SAMPLE;
             sample_count = 1;
+//            if(y_acceleration > 4000)
+//            {
+//              y_acceleration=42;
+//            }
             data_to_send[0] = 0x05;                         // Set Length to 5 bytes
             data_to_send[1] = 0xFF;                         // Write 1's to S1, for debug purposes
-            data_to_send[2] = (uint8_t) x_acceleration;
-            data_to_send[3] = (uint8_t) (x_acceleration>>8);
-            data_to_send[4] = (uint8_t) (x_acceleration>>16);
-            data_to_send[5] = (uint8_t) y_acceleration;
-            data_to_send[6] = (uint8_t) (y_acceleration>>8);
-            data_to_send[7] = (uint8_t) (y_acceleration>>16);
-            data_to_send[8] = (uint8_t) z_acceleration;
-            data_to_send[9] = (uint8_t) (z_acceleration>>8);
-            data_to_send[10] = (uint8_t) (z_acceleration>>16);
+            data_to_send[2] = (uint8_t) x_acc;
+            data_to_send[3] = (uint8_t) (x_acc>>8);
+            data_to_send[4] = (uint8_t) y_acc;
+            data_to_send[5] = (uint8_t) (y_acc>>8);
+            data_to_send[6] = (uint8_t) z_acc;
+            data_to_send[7] = (uint8_t) (z_acc>>8);
             rf_send(data_to_send);
           }
         }

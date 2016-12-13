@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ELF Linker V7.80.1.11864/W32 for ARM                09/Dec/2016  16:40:21
+# IAR ELF Linker V7.80.1.11864/W32 for ARM                13/Dec/2016  14:28:53
 # Copyright 2007-2016 IAR Systems AB.
 #
 #    Output file  =  
@@ -102,7 +102,7 @@ initialize by copy { rw };
     .bss             inited   0x20000018   0x14  main.o [1]
     .bss             inited   0x2000002c   0x14  main.o [1]
     .data            inited   0x20000040    0x1  main.o [1]
-    .bss             inited   0x20000041    0x1  main.o [1]
+    .data            inited   0x20000041    0x1  main.o [1]
     .bss             inited   0x20000042    0x1  main.o [1]
                             - 0x20000043   0x43
 
@@ -214,7 +214,7 @@ is_disabled_in_debug_needed
                         0x00000ae9   0x38  Code  Lc  system_nrf51.o [1]
 is_manual_peripheral_setup_needed
                         0x00000a79   0x70  Code  Lc  system_nrf51.o [1]
-main                    0x0000020b  0x11c  Code  Gb  main.o [1]
+main                    0x0000020b  0x11e  Code  Gb  main.o [1]
 nrf_gpio_cfg_input      0x00000621   0x12  Code  Lc  initialization.o [1]
 nrf_gpio_cfg_input      0x00000381   0x12  Code  Lc  spi_master.o [1]
 nrf_gpio_cfg_output     0x000000dd    0xc  Code  Lc  main.o [1]
@@ -226,7 +226,7 @@ nrf_gpio_pin_set        0x00000393    0xa  Code  Lc  spi_master.o [1]
 nrf_gpio_pin_toggle     0x000000fd   0x10  Code  Lc  main.o [1]
 nrf_gpiote_event_config
                         0x00000633   0x2a  Code  Lc  initialization.o [1]
-pulse_count             0x20000041    0x1  Data  Gb  main.o [1]
+pulse_count             0x20000042    0x1  Data  Gb  main.o [1]
 radio_configure         0x0000089b   0xe0  Code  Gb  radio_config.o [1]
 read_ac_value           0x000005b7   0x6a  Code  Gb  spi_master.o [1]
 read_data               0x00000577   0x40  Code  Gb  spi_master.o [1]
@@ -234,7 +234,7 @@ rf_send                 0x0000097b   0x68  Code  Gb  radio_config.o [1]
 sample_count            0x20000040    0x1  Data  Gb  main.o [1]
 spi_master_init         0x000003a7   0xe6  Code  Gb  spi_master.o [1]
 spi_master_tx_rx        0x0000048d   0x84  Code  Gb  spi_master.o [1]
-start                   0x20000042    0x1  Data  Gb  main.o [1]
+start                   0x20000041    0x1  Data  Gb  main.o [1]
 swap_bits               0x0000082d   0x2e  Code  Lc  radio_config.o [1]
 swap_bytes              0x0000085b   0x40  Code  Lc  radio_config.o [1]
 timerSPI_init           0x000006b3   0x3c  Code  Gb  initialization.o [1]
