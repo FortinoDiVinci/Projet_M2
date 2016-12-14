@@ -54,70 +54,12 @@ static int16_t z_acc_samples[MAX_LENGTH_SAMPLE]; /*acceleration z samples */
  * \return 0. int return type required by ANSI/ISO standard. 
  */
 
-void GPIOTE_IRQHandler(void)
-{
-  
-  
-  if (pulse_count == 0)
-  {
-    NVIC_EnableIRQ(TIMER0_IRQn);
-    NRF_TIMER0->TASKS_START=1;
-    pulse_count += INC;
-  }
-  else if (pulse_count < MAX-INC)
-  {
-    pulse_count += INC;
-  }
-    
-  // Event causing the interrupt must be cleared
-  NRF_GPIOTE->EVENTS_IN[0] = 0;
-  NVIC_DisableIRQ(GPIOTE_IRQn);
-  
-}
+void GPIOTE_IRQHandler(void);
 
-void TIMER0_IRQHandler(void)
-{
-  nrf_gpio_pin_toggle(LED);
-  
-  NVIC_EnableIRQ(GPIOTE_IRQn);
-  if (pulse_count  <= DEC)
-  {
-      NVIC_DisableIRQ(TIMER0_IRQn);
-//     NRF_TIMER0->TASKS_CLEAR = 1;
-      pulse_count = 0;
-  }
-  else if (pulse_count > DEC)
-  {
-    pulse_count -= DEC;
-  }
-  if(pulse_count > THRESH)
-  {
-    nrf_gpio_pin_set(LED2);
-    start =1;
-  }
-  else 
-  {
-    nrf_gpio_pin_clear(LED2);
-    start = 0;
-  }
-  if((NRF_TIMER0->EVENTS_COMPARE[0]==1) && (NRF_TIMER0->INTENSET & TIMER_INTENSET_COMPARE0_Msk))
-  {
-    NRF_TIMER0->EVENTS_COMPARE[0]=0;
-    //NRF_TIMER0->TASKS_START=1;
-  }
-}
-void TIMER1_IRQHandler(void)
-{
- 
-  read_ac_value(&x_acc_samples[sample_count],&y_acc_samples[sample_count],&z_acc_samples[sample_count]);
-  sample_count += 1;
-  
-  if((NRF_TIMER1->EVENTS_COMPARE[0]==1) && (NRF_TIMER1->INTENSET & TIMER_INTENSET_COMPARE0_Msk))
-  {
-    NRF_TIMER1->EVENTS_COMPARE[0]=0;
-    //NRF_TIMER0->TASKS_START=1;
-  }
-}
+void TIMER0_IRQHandler(void);
+
+void TIMER1_IRQHandler(void);
+
 
 int main(void)
 {
@@ -137,7 +79,7 @@ int main(void)
   
   gpiote_init();
 //  NVIC_EnableIRQ(GPIOTE_IRQn);
-//   // SPI0
+//SPI0
  
   
     write_data(0x3F,0X10);  // set accelrometre (get mesure : 52 hz; scall:+-16g filter :50hz)
@@ -199,4 +141,68 @@ int main(void)
  *@}
  **/
 
+void GPIOTE_IRQHandler(void)
+{
+  
+  
+  if (pulse_count == 0)
+  {
+    NVIC_EnableIRQ(TIMER0_IRQn);
+    NRF_TIMER0->TASKS_START=1;
+    pulse_count += INC;
+  }
+  else if (pulse_count < MAX-INC)
+  {
+    pulse_count += INC;
+  }
+    
+  // Event causing the interrupt must be cleared
+  NRF_GPIOTE->EVENTS_IN[0] = 0;
+  NVIC_DisableIRQ(GPIOTE_IRQn);
+  
+}
 
+void TIMER0_IRQHandler(void)
+{
+  nrf_gpio_pin_toggle(LED);
+  
+  NVIC_EnableIRQ(GPIOTE_IRQn);
+  if (pulse_count  <= DEC)
+  {
+      NVIC_DisableIRQ(TIMER0_IRQn);
+//     NRF_TIMER0->TASKS_CLEAR = 1;
+      pulse_count = 0;
+  }
+  else if (pulse_count > DEC)
+  {
+    pulse_count -= DEC;
+  }
+  if(pulse_count > THRESH)
+  {
+    nrf_gpio_pin_set(LED2);
+    start =1;
+  }
+  else 
+  {
+    nrf_gpio_pin_clear(LED2);
+    start = 0;
+  }
+  if((NRF_TIMER0->EVENTS_COMPARE[0]==1) && (NRF_TIMER0->INTENSET & TIMER_INTENSET_COMPARE0_Msk))
+  {
+    NRF_TIMER0->EVENTS_COMPARE[0]=0;
+    //NRF_TIMER0->TASKS_START=1;
+  }
+}
+
+void TIMER1_IRQHandler(void)
+{
+ 
+  read_ac_value(&x_acc_samples[sample_count],&y_acc_samples[sample_count],&z_acc_samples[sample_count]);
+  sample_count += 1;
+  
+  if((NRF_TIMER1->EVENTS_COMPARE[0]==1) && (NRF_TIMER1->INTENSET & TIMER_INTENSET_COMPARE0_Msk))
+  {
+    NRF_TIMER1->EVENTS_COMPARE[0]=0;
+    //NRF_TIMER0->TASKS_START=1;
+  }
+}
