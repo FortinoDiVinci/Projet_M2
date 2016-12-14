@@ -22,6 +22,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <math.h>
 #include "nrf.h"
 #include "nrf51.h"
 #include "nrf_gpio.h"
@@ -43,7 +44,7 @@
 
 
 uint8_t pulse_count = 0, sample_count = 1;
-uint8_t start = 1;
+uint8_t start = 0;
 
 static int16_t x_acc_samples[MAX_LENGTH_SAMPLE]; /*acceleration x samples*/
 static int16_t y_acc_samples[MAX_LENGTH_SAMPLE]; /*acceleration y samples */
@@ -72,15 +73,18 @@ int main(void)
   timerVib_init();
   // Enable GPIOTE interrupt in Nested Vector Interrupt Controller
   timerSPI_init();
-//  NVIC_EnableIRQ(TIMER0_IRQn);
+  NVIC_EnableIRQ(TIMER0_IRQn);
   
   nrf_gpio_cfg_output(LED2);
   nrf_gpio_cfg_output(LED);
   
   gpiote_init();
-//  NVIC_EnableIRQ(GPIOTE_IRQn);
-//SPI0
- 
+  NVIC_EnableIRQ(GPIOTE_IRQn);
+
+  int16_t angle = 0;
+  double test = 0.0;
+  
+  //SPI0
   
     write_data(0x3F,0X10);  // set accelrometre (get mesure : 52 hz; scall:+-16g filter :50hz)
     //write_data(0x33,0x10);     // set accelerometre (get mesure: 52hz scall:+-2g filter :50hz)
@@ -113,6 +117,13 @@ int main(void)
             y_acc = y_acceleration/MAX_LENGTH_SAMPLE;
             z_acc = z_acceleration/MAX_LENGTH_SAMPLE;
             sample_count = 1;
+            /* angle calculation */
+            test = sqrt(pow(x_acc,2)+pow(y_acc,2)+pow(z_acc,2));
+            test = ((double)z_acc)/test;
+            angle = (int16_t)acos(test);
+            test = acos(test);
+           
+            
 //            if(y_acceleration > 4000)
 //            {
 //              y_acceleration=42;
@@ -120,11 +131,13 @@ int main(void)
             data_to_send[0] = 0x05;                         // Set Length to 5 bytes
             data_to_send[1] = 0xFF;                         // Write 1's to S1, for debug purposes
             data_to_send[2] = (uint8_t) x_acc;
-            data_to_send[3] = (uint8_t) (x_acc>>8);
+            data_to_send[3] = (uint8_t) (x_acc >> 8);
             data_to_send[4] = (uint8_t) y_acc;
-            data_to_send[5] = (uint8_t) (y_acc>>8);
+            data_to_send[5] = (uint8_t) (y_acc >> 8);
             data_to_send[6] = (uint8_t) z_acc;
             data_to_send[7] = (uint8_t) (z_acc>>8);
+            //data_to_send[6] = (uint8_t)angle;
+            //data_to_send[7] = (uint8_t)(angle >> 8);
             rf_send(data_to_send);
           }
         }
