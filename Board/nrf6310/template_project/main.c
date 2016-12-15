@@ -81,8 +81,6 @@ int main(void)
   gpiote_init();
   NVIC_EnableIRQ(GPIOTE_IRQn);
 
-  int16_t angle = 0;
-  double test = 0.0;
   
   //SPI0
   
@@ -117,17 +115,7 @@ int main(void)
             y_acc = y_acceleration/MAX_LENGTH_SAMPLE;
             z_acc = z_acceleration/MAX_LENGTH_SAMPLE;
             sample_count = 1;
-            /* angle calculation */
-            test = sqrt(pow(x_acc,2)+pow(y_acc,2)+pow(z_acc,2));
-            test = ((double)z_acc)/test;
-            angle = (int16_t)acos(test);
-            test = acos(test);
-           
             
-//            if(y_acceleration > 4000)
-//            {
-//              y_acceleration=42;
-//            }
             data_to_send[0] = 0x05;                         // Set Length to 5 bytes
             data_to_send[1] = 0xFF;                         // Write 1's to S1, for debug purposes
             data_to_send[2] = (uint8_t) x_acc;
@@ -136,8 +124,6 @@ int main(void)
             data_to_send[5] = (uint8_t) (y_acc >> 8);
             data_to_send[6] = (uint8_t) z_acc;
             data_to_send[7] = (uint8_t) (z_acc>>8);
-            //data_to_send[6] = (uint8_t)angle;
-            //data_to_send[7] = (uint8_t)(angle >> 8);
             rf_send(data_to_send);
           }
         }

@@ -1924,6 +1924,12 @@
     </settings>
   </configuration>
   <file>
+    <name>$PROJ_DIR$\..\adc.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\..\adc.h</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\..\..\..\..\Source\templates\iar\iar_startup_nrf51.s</name>
   </file>
   <file>
