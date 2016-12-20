@@ -78,7 +78,6 @@ int main(void)
   nrf_gpio_cfg_output(LED2);
   nrf_gpio_cfg_output(LED);
   
-  gpiote_init();
   NVIC_EnableIRQ(GPIOTE_IRQn);
 
   
