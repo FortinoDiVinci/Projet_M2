@@ -6,6 +6,7 @@
 #define LED 18
 #define LED2 19
 #define BUTTON 17
+#define PIN_BUCK 0
 
  void gpiote_init(void);
 void timerVib_init();
