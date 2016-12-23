@@ -8,7 +8,7 @@
 #define BUTTON 17
 #define PIN_BUCK 0
 
- void gpiote_init(void);
+void gpiote_init(void);
 void timerVib_init();
 void timerSPI_init();
 

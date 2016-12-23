@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ELF Linker V7.80.1.11864/W32 for ARM                20/Dec/2016  09:01:11
+# IAR ELF Linker V7.80.1.11864/W32 for ARM                21/Dec/2016  17:45:20
 # Copyright 2007-2016 IAR Systems AB.
 #
 #    Output file  =  
@@ -49,52 +49,52 @@ initialize by copy { rw };
   .intvec            ro code  0x00000000   0xc0  iar_startup_nrf51.o [1]
                             - 0x000000c0   0xc0
 
-"P1":                                     0xbb8
-  .text              ro code  0x000000c0  0x2c0  main.o [1]
-  .text              ro code  0x00000380  0x12c  initialization.o [1]
-  .text              ro code  0x000004ac  0x2ac  spi_master.o [1]
-  .text              ro code  0x00000758   0xe0  I32DivModFast.o [4]
-  .text              ro code  0x00000838  0x224  radio_config.o [1]
-  .text              ro code  0x00000a5c   0xf0  system_nrf51.o [1]
-  .text              ro code  0x00000b4c   0x3c  packbits_init_single.o [4]
-  .text              ro code  0x00000b88   0x2c  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000bb4   0x28  data_init.o [4]
-  .iar.init_table    const    0x00000bdc   0x10  - Linker created -
-  .text              ro code  0x00000bec   0x1a  cmain.o [4]
-  .text              ro code  0x00000c06    0x8  exit.o [3]
-  .text              ro code  0x00000c0e    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c10    0xa  cexit.o [4]
-  .text              ro code  0x00000c1a    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c1c   0x14  exit.o [5]
-  .text              ro code  0x00000c30    0xc  cstartup_M.o [4]
-  .text              ro code  0x00000c3c    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c3e    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c40    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c42    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c44    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c46    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c48    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c4a    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c4c    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c4e    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c50    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c52    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c54    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c56    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c58    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c5a    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c5c    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c5e    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c60    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c62    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c64    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c66    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c68    0x2  iar_startup_nrf51.o [1]
+"P1":                                     0xc14
+  .text              ro code  0x000000c0  0x2ac  spi_master.o [1]
+  .text              ro code  0x0000036c  0x2a0  main.o [1]
+  .text              ro code  0x0000060c  0x15c  initialization.o [1]
+  .text              ro code  0x00000768   0xe0  I32DivModFast.o [4]
+  .text              ro code  0x00000848  0x270  radio_config.o [1]
+  .text              ro code  0x00000ab8   0xf0  system_nrf51.o [1]
+  .text              ro code  0x00000ba8   0x3c  packbits_init_single.o [4]
+  .text              ro code  0x00000be4   0x2c  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000c10   0x28  data_init.o [4]
+  .iar.init_table    const    0x00000c38   0x10  - Linker created -
+  .text              ro code  0x00000c48   0x1a  cmain.o [4]
+  .text              ro code  0x00000c62    0x8  exit.o [3]
   .text              ro code  0x00000c6a    0x2  iar_startup_nrf51.o [1]
-  .text              ro code  0x00000c6c    0x2  iar_startup_nrf51.o [1]
-  .rodata            const    0x00000c6e    0x0  packbits_init_single.o [4]
-  Initializer bytes  const    0x00000c6e    0xa  <for P2-1>
-                            - 0x00000c78  0xbb8
+  .text              ro code  0x00000c6c    0xa  cexit.o [4]
+  .text              ro code  0x00000c76    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000c78   0x14  exit.o [5]
+  .text              ro code  0x00000c8c    0xc  cstartup_M.o [4]
+  .text              ro code  0x00000c98    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000c9a    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000c9c    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000c9e    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000ca0    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000ca2    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000ca4    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000ca6    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000ca8    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000caa    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cac    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cae    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cb0    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cb2    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cb4    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cb6    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cb8    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cba    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cbc    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cbe    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cc0    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cc2    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cc4    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cc6    0x2  iar_startup_nrf51.o [1]
+  .text              ro code  0x00000cc8    0x2  iar_startup_nrf51.o [1]
+  .rodata            const    0x00000cca    0x0  packbits_init_single.o [4]
+  Initializer bytes  const    0x00000cca    0xa  <for P2-1>
+                            - 0x00000cd4  0xc14
 
 "P2", part 1 of 2:                         0x43
   P2-1                        0x20000000   0x43  <Init block>
@@ -121,7 +121,7 @@ initialize by copy { rw };
           -------     ----
 Copy/packbits (__iar_packbits_init_single3)
     1 source range, total size 0xa (14% of destination):
-          0x00000c6e   0xa
+          0x00000cca   0xa
     1 destination range, total size 0x43:
           0x20000000  0x43
 
@@ -135,13 +135,13 @@ Copy/packbits (__iar_packbits_init_single3)
     ------                  -------  -------  -------
 C:\Users\fabian\Documents\GitHub\Projet_M2\Board\nrf6310\template_project\iar\Debug\Obj: [1]
     iar_startup_nrf51.o         290
-    initialization.o            300
-    main.o                      704       10       63
-    radio_config.o              548
+    initialization.o            348
+    main.o                      672       10       63
+    radio_config.o              624
     spi_master.o                684
     system_nrf51.o              240                 4
     -------------------------------------------------
-    Total:                    2 766       10       67
+    Total:                    2 858       10       67
 
 command line: [2]
     -------------------------------------------------
@@ -169,7 +169,7 @@ shb_l.a: [5]
 
     Linker created                        16    2 048
 -----------------------------------------------------
-    Grand Total:              3 166       26    2 115
+    Grand Total:              3 258       26    2 115
 
 
 *******************************************************************************
@@ -178,69 +178,73 @@ shb_l.a: [5]
 
 Entry                      Address   Size  Type      Object
 -----                      -------   ----  ----      ------
-.iar.init_table$$Base   0x00000bdc          --   Gb  - Linker created -
-.iar.init_table$$Limit  0x00000bec          --   Gb  - Linker created -
-?main                   0x00000bed         Code  Gb  cmain.o [4]
+.iar.init_table$$Base   0x00000c38          --   Gb  - Linker created -
+.iar.init_table$$Limit  0x00000c48          --   Gb  - Linker created -
+?main                   0x00000c49         Code  Gb  cmain.o [4]
 CSTACK$$Base            0x20000048          --   Gb  - Linker created -
 CSTACK$$Limit           0x20000848          --   Gb  - Linker created -
-GPIOTE_IRQHandler       0x00000237   0x42  Code  Gb  main.o [1]
-NVIC_DisableIRQ         0x000000cf    0xe  Code  Lc  main.o [1]
-NVIC_EnableIRQ          0x000000c1    0xe  Code  Lc  main.o [1]
-Region$$Table$$Base     0x00000bdc          --   Gb  - Linker created -
-Region$$Table$$Limit    0x00000bec          --   Gb  - Linker created -
+GPIOTE_IRQHandler       0x000004c7   0x42  Code  Gb  main.o [1]
+NVIC_DisableIRQ         0x0000037b    0xe  Code  Lc  main.o [1]
+NVIC_EnableIRQ          0x0000036d    0xe  Code  Lc  main.o [1]
+Region$$Table$$Base     0x00000c38          --   Gb  - Linker created -
+Region$$Table$$Limit    0x00000c48          --   Gb  - Linker created -
 SystemCoreClock         0x20000000    0x4  Data  Gb  system_nrf51.o [1]
-SystemInit              0x00000a5d   0x28  Code  Gb  system_nrf51.o [1]
-TIMER0_IRQHandler       0x00000279   0x70  Code  Gb  main.o [1]
-TIMER1_IRQHandler       0x000002e9   0x4c  Code  Gb  main.o [1]
+SystemInit              0x00000ab9   0x28  Code  Gb  system_nrf51.o [1]
+TIMER0_IRQHandler       0x00000509   0x70  Code  Gb  main.o [1]
+TIMER1_IRQHandler       0x00000579   0x4c  Code  Gb  main.o [1]
 __Vectors               0x00000000          --   Gb  iar_startup_nrf51.o [1]
 __Vectors_End           0x000000c0         Data  Gb  iar_startup_nrf51.o [1]
 __Vectors_Size {Abs}    0x000000c0          --   Gb  iar_startup_nrf51.o [1]
-__aeabi_idiv            0x00000785         Code  Gb  I32DivModFast.o [4]
-__aeabi_idivmod         0x00000785         Code  Gb  I32DivModFast.o [4]
-__aeabi_uidiv           0x0000078b         Code  Gb  I32DivModFast.o [4]
-__aeabi_uidivmod        0x0000078b         Code  Gb  I32DivModFast.o [4]
-__cmain                 0x00000bed         Code  Gb  cmain.o [4]
-__exit                  0x00000c1d   0x14  Code  Gb  exit.o [5]
-__iar_data_init3        0x00000bb5   0x28  Code  Gb  data_init.o [4]
+__aeabi_idiv            0x00000795         Code  Gb  I32DivModFast.o [4]
+__aeabi_idivmod         0x00000795         Code  Gb  I32DivModFast.o [4]
+__aeabi_uidiv           0x0000079b         Code  Gb  I32DivModFast.o [4]
+__aeabi_uidivmod        0x0000079b         Code  Gb  I32DivModFast.o [4]
+__cmain                 0x00000c49         Code  Gb  cmain.o [4]
+__exit                  0x00000c79   0x14  Code  Gb  exit.o [5]
+__iar_data_init3        0x00000c11   0x28  Code  Gb  data_init.o [4]
 __iar_packbits_init_single3
-                        0x00000b4d   0x3c  Code  Gb  packbits_init_single.o [4]
-__iar_program_start     0x00000c31         Code  Gb  cstartup_M.o [4]
+                        0x00000ba9   0x3c  Code  Gb  packbits_init_single.o [4]
+__iar_program_start     0x00000c8d         Code  Gb  cstartup_M.o [4]
 __vector_table          0x00000000         Data  Gb  iar_startup_nrf51.o [1]
-_call_main              0x00000bf9         Code  Gb  cmain.o [4]
-_exit                   0x00000c11         Code  Gb  cexit.o [4]
-_main                   0x00000c03         Code  Gb  cmain.o [4]
-exit                    0x00000c07    0x8  Code  Gb  exit.o [3]
-gpiote_init             0x000003bd   0x1c  Code  Gb  initialization.o [1]
+_call_main              0x00000c55         Code  Gb  cmain.o [4]
+_exit                   0x00000c6d         Code  Gb  cexit.o [4]
+_main                   0x00000c5f         Code  Gb  cmain.o [4]
+exit                    0x00000c63    0x8  Code  Gb  exit.o [3]
+gpiote_init             0x0000065f   0x34  Code  Gb  initialization.o [1]
 is_disabled_in_debug_needed
-                        0x00000af5   0x38  Code  Lc  system_nrf51.o [1]
+                        0x00000b51   0x38  Code  Lc  system_nrf51.o [1]
 is_manual_peripheral_setup_needed
-                        0x00000a85   0x70  Code  Lc  system_nrf51.o [1]
-main                    0x0000010d  0x12a  Code  Gb  main.o [1]
-nrf_gpio_cfg_input      0x00000381   0x12  Code  Lc  initialization.o [1]
-nrf_gpio_cfg_input      0x000004b9   0x12  Code  Lc  spi_master.o [1]
-nrf_gpio_cfg_output     0x000000dd    0xc  Code  Lc  main.o [1]
-nrf_gpio_cfg_output     0x000004ad    0xc  Code  Lc  spi_master.o [1]
-nrf_gpio_pin_clear      0x000000f3    0xa  Code  Lc  main.o [1]
-nrf_gpio_pin_clear      0x000004d5    0xa  Code  Lc  spi_master.o [1]
-nrf_gpio_pin_set        0x000000e9    0xa  Code  Lc  main.o [1]
-nrf_gpio_pin_set        0x000004cb    0xa  Code  Lc  spi_master.o [1]
-nrf_gpio_pin_toggle     0x000000fd   0x10  Code  Lc  main.o [1]
+                        0x00000ae1   0x70  Code  Lc  system_nrf51.o [1]
+main                    0x000003ad  0x11a  Code  Gb  main.o [1]
+nrf_delay_us            0x0000085d   0x1e  Code  Lc  radio_config.o [1]
+nrf_gpio_cfg_input      0x00000619   0x12  Code  Lc  initialization.o [1]
+nrf_gpio_cfg_input      0x000000cd   0x12  Code  Lc  spi_master.o [1]
+nrf_gpio_cfg_output     0x0000060d    0xc  Code  Lc  initialization.o [1]
+nrf_gpio_cfg_output     0x000000c1    0xc  Code  Lc  spi_master.o [1]
+nrf_gpio_pin_clear      0x0000062b    0xa  Code  Lc  initialization.o [1]
+nrf_gpio_pin_clear      0x00000393    0xa  Code  Lc  main.o [1]
+nrf_gpio_pin_clear      0x00000853    0xa  Code  Lc  radio_config.o [1]
+nrf_gpio_pin_clear      0x000000e9    0xa  Code  Lc  spi_master.o [1]
+nrf_gpio_pin_set        0x00000389    0xa  Code  Lc  main.o [1]
+nrf_gpio_pin_set        0x00000849    0xa  Code  Lc  radio_config.o [1]
+nrf_gpio_pin_set        0x000000df    0xa  Code  Lc  spi_master.o [1]
+nrf_gpio_pin_toggle     0x0000039d   0x10  Code  Lc  main.o [1]
 nrf_gpiote_event_config
-                        0x00000393   0x2a  Code  Lc  initialization.o [1]
+                        0x00000635   0x2a  Code  Lc  initialization.o [1]
 pulse_count             0x20000041    0x1  Data  Gb  main.o [1]
-radio_configure         0x000008a7   0xe0  Code  Gb  radio_config.o [1]
-read_ac_value           0x000006ef   0x6a  Code  Gb  spi_master.o [1]
-read_data               0x000006af   0x40  Code  Gb  spi_master.o [1]
-rf_send                 0x00000987   0x68  Code  Gb  radio_config.o [1]
+radio_configure         0x000008e9   0xe0  Code  Gb  radio_config.o [1]
+read_ac_value           0x00000303   0x6a  Code  Gb  spi_master.o [1]
+read_data               0x000002c3   0x40  Code  Gb  spi_master.o [1]
+rf_send                 0x000009c9   0x7c  Code  Gb  radio_config.o [1]
 sample_count            0x20000040    0x1  Data  Gb  main.o [1]
-spi_master_init         0x000004df   0xe6  Code  Gb  spi_master.o [1]
-spi_master_tx_rx        0x000005c5   0x84  Code  Gb  spi_master.o [1]
+spi_master_init         0x000000f3   0xe6  Code  Gb  spi_master.o [1]
+spi_master_tx_rx        0x000001d9   0x84  Code  Gb  spi_master.o [1]
 start                   0x20000042    0x1  Data  Gb  main.o [1]
-swap_bits               0x00000839   0x2e  Code  Lc  radio_config.o [1]
-swap_bytes              0x00000867   0x40  Code  Lc  radio_config.o [1]
-timerSPI_init           0x00000413   0x3c  Code  Gb  initialization.o [1]
-timerVib_init           0x000003d9   0x3a  Code  Gb  initialization.o [1]
-write_data              0x0000066d   0x42  Code  Gb  spi_master.o [1]
+swap_bits               0x0000087b   0x2e  Code  Lc  radio_config.o [1]
+swap_bytes              0x000008a9   0x40  Code  Lc  radio_config.o [1]
+timerSPI_init           0x000006cd   0x3c  Code  Gb  initialization.o [1]
+timerVib_init           0x00000693   0x3a  Code  Gb  initialization.o [1]
+write_data              0x00000281   0x42  Code  Gb  spi_master.o [1]
 x_acc_samples           0x20000004   0x14  Data  Lc  main.o [1]
 y_acc_samples           0x20000018   0x14  Data  Lc  main.o [1]
 z_acc_samples           0x2000002c   0x14  Data  Lc  main.o [1]
@@ -252,7 +256,7 @@ z_acc_samples           0x2000002c   0x14  Data  Lc  main.o [1]
 [4] = rt6M_tl.a
 [5] = shb_l.a
 
-  3 166 bytes of readonly  code memory
+  3 258 bytes of readonly  code memory
      26 bytes of readonly  data memory
   2 115 bytes of readwrite data memory
 

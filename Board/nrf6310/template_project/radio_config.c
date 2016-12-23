@@ -12,6 +12,7 @@
 
 #include "radio_config.h"
 #include "nrf_gpio.h"
+#include "nrf_delay.h"
 
 #define PACKET0_S1_SIZE                  (0UL)  //!< S1 size in bits
 #define PACKET0_S0_SIZE                  (0UL)  //!< S0 size in bits
@@ -19,6 +20,7 @@
 #define PACKET1_BASE_ADDRESS_LENGTH      (4UL)  //!< base address length in bytes
 #define PACKET1_STATIC_LENGTH            (11UL)  //!< static length in bytes
 #define PACKET1_PAYLOAD_SIZE             (11UL)  //!< payload size in bits
+#define PIN_BUCK 0
 
 /**
  * Swap / mirror bits in a byte.
@@ -170,6 +172,8 @@ void rf_send(uint8_t *packet)
   {
   }
 
+  nrf_gpio_pin_set(PIN_BUCK);
+  nrf_delay_us(700);
   // Start transmission and wait for end of packet.
   NRF_RADIO->TASKS_START = 1U;
 
@@ -179,6 +183,7 @@ void rf_send(uint8_t *packet)
   {
   }
 
+  nrf_gpio_pin_clear(PIN_BUCK);
   NRF_RADIO->EVENTS_DISABLED = 0U;
 
   // Disable radio

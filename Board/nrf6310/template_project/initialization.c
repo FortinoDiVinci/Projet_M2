@@ -5,6 +5,7 @@
 #include "nrf_gpio.h"
 #include "nrf_delay.h"
 #include "nrf_gpiote.h"
+#include "nrf_gpio.h"
 #include <initialization.h>
 
 
@@ -21,6 +22,11 @@
 
   // Enable interrupt for NRF_GPIOTE->EVENTS_IN[0] event
   NRF_GPIOTE->INTENSET = GPIOTE_INTENSET_IN0_Msk;
+  
+  nrf_gpio_cfg_output(LED2);
+  nrf_gpio_cfg_output(LED);
+  nrf_gpio_cfg_output(PIN_BUCK);
+  nrf_gpio_pin_clear(PIN_BUCK);
 }
 
 void timerVib_init()

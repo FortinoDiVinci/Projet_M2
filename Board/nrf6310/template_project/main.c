@@ -28,8 +28,8 @@
 #include "nrf_gpio.h"
 #include "nrf_delay.h"
 #include "nrf_gpiote.h"
+   
 #include "initialization.h"
-
 #include "spi_master.h"
 #include "common.h"
 #include "spi_master_config.h"
@@ -74,22 +74,15 @@ int main(void)
   // Enable GPIOTE interrupt in Nested Vector Interrupt Controller
   timerSPI_init();
   NVIC_EnableIRQ(TIMER0_IRQn);
-  
-  nrf_gpio_cfg_output(LED2);
-  nrf_gpio_cfg_output(LED);
-  
   NVIC_EnableIRQ(GPIOTE_IRQn);
-
   
-  //SPI0
-  
+  //SPI0  
     write_data(0x3F,0X10);  // set accelrometre (get mesure : 52 hz; scall:+-16g filter :50hz)
     //write_data(0x33,0x10);     // set accelerometre (get mesure: 52hz scall:+-2g filter :50hz)
     read_data(0x10);        // check value 
     write_data(0x10,0x15);  // disable high-performance mode for accelerometre 
     while (true)
-    {
-      
+    {     
       if( start == 1)
       { 
         NRF_TIMER1->TASKS_START=1;
@@ -141,8 +134,6 @@ int main(void)
 
 void GPIOTE_IRQHandler(void)
 {
-  
-  
   if (pulse_count == 0)
   {
     NVIC_EnableIRQ(TIMER0_IRQn);
