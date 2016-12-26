@@ -68,12 +68,12 @@ int main(void)
 * Triggered on motion interrupt pin input low-to-high transition.
 */
   
-  
   gpiote_init();
   timerVib_init();
+  
   // Enable GPIOTE interrupt in Nested Vector Interrupt Controller
   timerSPI_init();
-  NVIC_EnableIRQ(TIMER0_IRQn);
+  //NVIC_EnableIRQ(TIMER0_IRQn);
   NVIC_EnableIRQ(GPIOTE_IRQn);
   
   //SPI0  
