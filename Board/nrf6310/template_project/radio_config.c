@@ -172,7 +172,7 @@ void rf_send(uint8_t *packet)
   {
   }
 
-  nrf_gpio_pin_set(PIN_BUCK);
+  nrf_gpio_pin_clear(PIN_BUCK);
   nrf_delay_us(700);
   // Start transmission and wait for end of packet.
   NRF_RADIO->TASKS_START = 1U;

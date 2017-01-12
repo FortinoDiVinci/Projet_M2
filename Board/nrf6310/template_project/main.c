@@ -68,13 +68,25 @@ int main(void)
 * Triggered on motion interrupt pin input low-to-high transition.
 */
   
-  gpiote_init();
-  timerVib_init();
-  
+
+   gpiote_init();
+    while(1)
+  {
+    __NOP();
+    __SEV();
+    __WFE();
+    __WFE();
+  }
+   timerVib_init();
+   timerSPI_init();
+   NRF_POWER->DCDCEN=POWER_DCDCEN_DCDCEN_Disabled<<POWER_DCDCEN_DCDCEN_Pos;
+   NRF_POWER->TASKS_LOWPWR=1;
+   
   // Enable GPIOTE interrupt in Nested Vector Interrupt Controller
-  timerSPI_init();
-  //NVIC_EnableIRQ(TIMER0_IRQn);
   NVIC_EnableIRQ(GPIOTE_IRQn);
+  
+
+//    NRF_POWER->SYSTEMOFF=POWER_SYSTEMOFF_SYSTEMOFF_Enter<<POWER_SYSTEMOFF_SYSTEMOFF_Pos;
   
   //SPI0  
     write_data(0x3F,0X10);  // set accelrometre (get mesure : 52 hz; scall:+-16g filter :50hz)
@@ -123,7 +135,8 @@ int main(void)
       else 
       {
         NVIC_DisableIRQ(TIMER1_IRQn);
-       __WFI();
+        __WFI();
+//        NRF_POWER->SYSTEMOFF=POWER_SYSTEMOFF_SYSTEMOFF_Enter<<POWER_SYSTEMOFF_SYSTEMOFF_Pos;
       }
     }
 }
@@ -144,7 +157,6 @@ void GPIOTE_IRQHandler(void)
   {
     pulse_count += INC;
   }
-    
   // Event causing the interrupt must be cleared
   NRF_GPIOTE->EVENTS_IN[0] = 0;
   NVIC_DisableIRQ(GPIOTE_IRQn);
@@ -160,7 +172,7 @@ void TIMER0_IRQHandler(void)
   {
       NVIC_DisableIRQ(TIMER0_IRQn);
 //     NRF_TIMER0->TASKS_CLEAR = 1;
-      pulse_count = 0;
+      pulse_count = 0; 
   }
   else if (pulse_count > DEC)
   {
@@ -171,6 +183,11 @@ void TIMER0_IRQHandler(void)
     nrf_gpio_pin_set(LED2);
     start =1;
   }
+//  else if(pulse_count==0)
+//  {
+//    nrf_gpio_pin_set(DEBEUG_PIN);
+//    NRF_POWER->SYSTEMOFF=POWER_SYSTEMOFF_SYSTEMOFF_Enter<<POWER_SYSTEMOFF_SYSTEMOFF_Pos;
+//  }
   else 
   {
     nrf_gpio_pin_clear(LED2);
