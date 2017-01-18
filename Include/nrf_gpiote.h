@@ -109,8 +109,8 @@ static __INLINE void nrf_gpiote_task_config(uint32_t channel_number, uint32_t pi
 static __INLINE void nrf_gpiote_event_config(uint32_t channel_number, uint32_t pin_number, nrf_gpiote_polarity_t polarity)
 {   
     /* Configure the channel as the caller expects */
-    NRF_GPIOTE->CONFIG[channel_number] = (GPIOTE_CONFIG_MODE_Event << GPIOTE_CONFIG_MODE_Pos)     |
-                                      (GPIOTE_CONFIG_OUTINIT_High << GPIOTE_CONFIG_OUTINIT_Pos)   |
+    NRF_GPIOTE->CONFIG[channel_number] = ( GPIOTE_CONFIG_MODE_Task << GPIOTE_CONFIG_MODE_Pos)     | //GPIOTE_CONFIG_MODE_Event
+                                   //   (GPIOTE_CONFIG_OUTINIT_High << GPIOTE_CONFIG_OUTINIT_Pos)   |
                                          ((uint32_t)pin_number     << GPIOTE_CONFIG_PSEL_Pos)     |
                                          ((uint32_t)polarity       << GPIOTE_CONFIG_POLARITY_Pos);
 

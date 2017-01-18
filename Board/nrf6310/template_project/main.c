@@ -34,6 +34,7 @@
 #include "common.h"
 #include "spi_master_config.h"
 #include "radio_config.h"
+#include "adc.h"
 
 #define MAX_LENGTH_SAMPLE 10
 #define INC 4
@@ -67,15 +68,27 @@ int main(void)
 /** GPIOTE interrupt handler.
 * Triggered on motion interrupt pin input low-to-high transition.
 */
-  
-
+   NRF_POWER->DCDCEN=POWER_DCDCEN_DCDCEN_Disabled<<POWER_DCDCEN_DCDCEN_Pos;
+   NRF_POWER->TASKS_LOWPWR=1;
    gpiote_init();
     while(1)
   {
-    __NOP();
-    __SEV();
-    __WFE();
-    __WFE();
+            uint8_t data_to_send[SIZE_PACKET];
+            uint8_t data;
+            data= start_sampling();
+            data_to_send[0] = 0x05;                         // Set Length to 5 bytes
+            data_to_send[1] = 0xFF;                         // Write 1's to S1, for debug purposes
+            data_to_send[2] = data;
+            data_to_send[3] = 0x00;
+            data_to_send[4] = 0x00;
+            data_to_send[5] = 0x00;
+            data_to_send[6] = 0x00;
+            data_to_send[7] = 0x00;
+            rf_send(data_to_send);
+//    __NOP();
+//    __SEV();
+//    __WFE();
+//    __WFE();
   }
    timerVib_init();
    timerSPI_init();
