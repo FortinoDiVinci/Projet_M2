@@ -3,7 +3,6 @@
 
 #include <stdint.h>
 
-#define PIN_ADC 26
 #define PIN_ADC_ON 24
 
 void init_adc();

@@ -13,7 +13,7 @@ void init_adc()
                                         | (ADC_CONFIG_EXTREFSEL_None << ADC_CONFIG_EXTREFSEL_Pos); 
   nrf_gpio_cfg_output(PIN_ADC_ON);
   nrf_gpio_pin_clear(PIN_ADC_ON);
-  NRF_ADC->ENABLE=ADC_ENABLE_ENABLE_Enabled<<ADC_ENABLE_ENABLE_Pos;  
+  NRF_ADC->ENABLE=ADC_ENABLE_ENABLE_Enabled<<ADC_ENABLE_ENABLE_Pos;
 }
 
 uint8_t start_sampling()
@@ -27,5 +27,5 @@ uint8_t start_sampling()
   {
   }
   nrf_gpio_pin_clear(PIN_ADC_ON);
-  return (uint8_t) (0x00FF&NRF_ADC->RESULT); 
+  return (uint8_t) (0x0000FF&NRF_ADC->RESULT); 
 }

@@ -13,6 +13,7 @@
 void gpiote_init(void);
 void timerVib_init();
 void timerSPI_init();
+void timerADC_init();
 
 #endif
 
