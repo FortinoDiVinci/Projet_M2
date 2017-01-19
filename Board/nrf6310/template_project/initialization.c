@@ -29,12 +29,13 @@
                                         | (GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos)
                                         | (GPIO_PIN_CNF_DIR_Input << GPIO_PIN_CNF_DIR_Pos);
   
-  //nrf_gpiote_event_config(0, 6, NRF_GPIOTE_POLARITY_LOTOHI);
+  nrf_gpiote_event_config(0, 6, NRF_GPIOTE_POLARITY_LOTOHI);
   
 
 
   // Enable interrupt for NRF_GPIOTE->EVENTS_IN[0] event
-  NRF_GPIOTE->INTENSET = GPIOTE_INTENSET_IN0_Enabled<<GPIOTE_INTENSET_PORT_Pos;
+  //NRF_GPIOTE->INTENSET = GPIOTE_INTENSET_IN0_Enabled<<GPIOTE_INTENSET_PORT_Pos;
+  NRF_GPIOTE->INTENSET = GPIOTE_INTENSET_IN0_Msk;
                                         
   nrf_gpio_cfg_output(LED2);
   nrf_gpio_pin_clear(LED2);
