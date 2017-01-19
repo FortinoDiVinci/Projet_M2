@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
+<<<<<<< Updated upstream
 <Project>
   <Desktop>
     <Static>
@@ -93,5 +94,8 @@
     <Top><Row0><Sizes><Toolbar-04687498><key>iaridepm.enu1</key></Toolbar-04687498></Sizes></Row0><Row1><Sizes><Toolbar-19B65A48><key>debuggergui.enu1</key></Toolbar-19B65A48></Sizes></Row1><Row2><Sizes><Toolbar-19B66600><key>armjlink2.enu1</key></Toolbar-19B66600></Sizes></Row2></Top><Left><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>660</Bottom><Right>360</Right><x>-2</x><y>-2</y><xscreen>362</xscreen><yscreen>222</yscreen><sizeHorzCX>188542</sizeHorzCX><sizeHorzCY>227459</sizeHorzCY><sizeVertCX>188542</sizeVertCX><sizeVertCY>678279</sizeVertCY></Rect></Wnd1></Sizes></Row0></Left><Right><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>660</Bottom><Right>360</Right><x>-2</x><y>-2</y><xscreen>362</xscreen><yscreen>222</yscreen><sizeHorzCX>188542</sizeHorzCX><sizeHorzCY>227459</sizeHorzCY><sizeVertCX>188542</sizeVertCX><sizeVertCY>678279</sizeVertCY></Rect></Wnd2></Sizes></Row0><Row1><Sizes><Wnd3><Rect><Top>-2</Top><Left>358</Left><Bottom>660</Bottom><Right>558</Right><x>358</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>104167</sizeHorzCX><sizeHorzCY>204918</sizeHorzCY><sizeVertCX>104167</sizeVertCX><sizeVertCY>678279</sizeVertCY></Rect></Wnd3></Sizes></Row1></Right><Bottom><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>220</Bottom><Right>1922</Right><x>-2</x><y>-2</y><xscreen>1924</xscreen><yscreen>222</yscreen><sizeHorzCX>1002083</sizeHorzCX><sizeHorzCY>227459</sizeHorzCY><sizeVertCX>188542</sizeVertCX><sizeVertCY>227459</sizeVertCY></Rect></Wnd0></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
   </Desktop>
 </Project>
+=======
+<Project/>
+>>>>>>> Stashed changes
 
 
